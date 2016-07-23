@@ -1,1 +1,3 @@
-Test of myBlog
+# Test of myBlog
+
+> index.md
