@@ -2,10 +2,11 @@
 layout: post
 title:  "Compose Overview!"
 date:   2016-07-24 11:44:16 +0800
-categories: jekyll update
+categories: docker
+tags: compose
 ---
 
-# [Compose Overview](https://docs.docker.com/compose/overview/)
+# [原文地址](https://docs.docker.com/compose/overview/)
 Docker Compose 是定义、构建多容器的 docker 应用的工具。
 Compose 通过 compose 文件配置应用的服务。之后，用一条指令就可以从配置创建、启动所有服务。
 
@@ -132,11 +133,17 @@ To uninstall Docker Compose if you installed using pip:
 
 
 # [Getting Started](https://docs.docker.com/compose/gettingstarted/)
+
 # [Get started with Django](https://docs.docker.com/compose/django/)
+
 # [Get started with Rails](https://docs.docker.com/compose/rails/)
+
 # [Get started with WordPress](https://docs.docker.com/compose/wordpress/)
+
 # [Frequently asked questions](https://docs.docker.com/compose/faq/)
+
 # [Command line reference](https://docs.docker.com/compose/reference/)
+
 # [Compose file reference](https://docs.docker.com/compose/compose-file/)
 
 # [Environment file](https://docs.docker.com/compose/env-file/)
