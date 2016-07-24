@@ -6,10 +6,10 @@
 # 'jekyll serve'. If you change this file, please restart the server process.
 
 # Site settings
-title: 董奎的学习博客
+title: 学习笔记
 email: dongkui0712@foxmail.com
 description: > # this means to ignore newlines until "baseurl:"
-  在这儿纪录学习的点滴进步，分享收获的喜悦!
+  纪录点滴进步，分享无限喜悦!
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "http://dongkui0712.github.io" # the base hostname & protocol for your site
 # twitter_username: jekyllrb
