@@ -6,7 +6,7 @@ categories: docker
 tags: compose
 ---
 
-# [原文地址](https://docs.docker.com/compose/overview/)
+[原文地址](https://docs.docker.com/compose/overview/)
 Docker Compose 是定义、构建多容器的 docker 应用的工具。
 Compose 通过 compose 文件配置应用的服务。之后，用一条指令就可以从配置创建、启动所有服务。
 
