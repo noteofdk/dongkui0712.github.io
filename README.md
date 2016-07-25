@@ -1,3 +1,3 @@
 # dongkui0712.github.io
 
-my blog
+my blog build by jekyll
