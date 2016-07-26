@@ -84,28 +84,16 @@
 
 
 
-<meta name="description" content="Docker Compose 是定义、构建多容器的 docker 应用的工具。Compose 通过 compose 文件配置应用的服务。之后，用一条指令就可以从配置创建、启动所有服务。和 CI 工作流程搭配，Compose 在开发、测试、模拟环境下非常给力。更多内容参见 Common Use Cases.。
-使用 Compose 基于一下三步：
-
-
-用 Dockerfile 定义应用的环境（以在任">
+<meta name="description" content="Docker Compose 是定义、构建多容器的 docker 应用的工具。Compose 通过 compose 文件配置应用的服务。之后，用一条指令就可以从配置创建、启动所有服务。和 CI 工作流程搭配，Compose 在开发、测试、模拟环境下非常给力。更多内容参见 Common Use Cases.。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="docker-compose-overview">
 <meta property="og:url" content="http://dongkui0712.github.io/2016/07/25/docker-compose-overview/index.html">
 <meta property="og:site_name" content="苦行僧">
-<meta property="og:description" content="Docker Compose 是定义、构建多容器的 docker 应用的工具。Compose 通过 compose 文件配置应用的服务。之后，用一条指令就可以从配置创建、启动所有服务。和 CI 工作流程搭配，Compose 在开发、测试、模拟环境下非常给力。更多内容参见 Common Use Cases.。
-使用 Compose 基于一下三步：
-
-
-用 Dockerfile 定义应用的环境（以在任">
-<meta property="og:updated_time" content="2016-07-25T15:45:33.000Z">
+<meta property="og:description" content="Docker Compose 是定义、构建多容器的 docker 应用的工具。Compose 通过 compose 文件配置应用的服务。之后，用一条指令就可以从配置创建、启动所有服务。和 CI 工作流程搭配，Compose 在开发、测试、模拟环境下非常给力。更多内容参见 Common Use Cases.。">
+<meta property="og:updated_time" content="2016-07-26T01:28:01.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="docker-compose-overview">
-<meta name="twitter:description" content="Docker Compose 是定义、构建多容器的 docker 应用的工具。Compose 通过 compose 文件配置应用的服务。之后，用一条指令就可以从配置创建、启动所有服务。和 CI 工作流程搭配，Compose 在开发、测试、模拟环境下非常给力。更多内容参见 Common Use Cases.。
-使用 Compose 基于一下三步：
-
-
-用 Dockerfile 定义应用的环境（以在任">
+<meta name="twitter:description" content="Docker Compose 是定义、构建多容器的 docker 应用的工具。Compose 通过 compose 文件配置应用的服务。之后，用一条指令就可以从配置创建、启动所有服务。和 CI 工作流程搭配，Compose 在开发、测试、模拟环境下非常给力。更多内容参见 Common Use Cases.。">
 
 
 
@@ -274,8 +262,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/docker-compose/" itemprop="url" rel="index">
-                    <span itemprop="name">docker, compose</span>
+                  <a href="/categories/docker/" itemprop="url" rel="index">
+                    <span itemprop="name">docker</span>
                   </a>
                 </span>
 
@@ -308,6 +296,7 @@
 
       
         <p>Docker Compose 是定义、构建多容器的 docker 应用的工具。<br>Compose 通过 compose 文件配置应用的服务。之后，用一条指令就可以从配置创建、启动所有服务。<br>和 CI 工作流程搭配，Compose 在开发、测试、模拟环境下非常给力。更多内容参见 <a href="https://docs.docker.com/compose/overview/#common-use-cases" target="_blank" rel="external">Common Use Cases.</a>。</p>
+<a id="more"></a>
 <p>使用 Compose 基于一下三步：</p>
 <ul>
 <li><ol>
@@ -323,7 +312,6 @@
 </ol>
 </li>
 </ul>
-<a id="more"></a>
 <p><a href="https://docs.docker.com/compose/overview/" target="_blank" rel="external">原文地址</a></p>
 <p>docker-compose.yml 格式如下：</p>
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="attr">version:</span> <span class="string">'2'</span></div><div class="line"><span class="attr">services:</span></div><div class="line"><span class="attr">  web:</span></div><div class="line"><span class="attr">    build:</span> .</div><div class="line"><span class="attr">    ports:</span></div><div class="line"><span class="bullet">    -</span> <span class="string">"5000:5000"</span></div><div class="line"><span class="attr">    volumes:</span></div><div class="line"><span class="bullet">    -</span> .:/code</div><div class="line"><span class="attr">    - logvolume01:</span>/var/log</div><div class="line"><span class="attr">    links:</span></div><div class="line"><span class="bullet">    -</span> redis</div><div class="line"><span class="attr">  redis:</span></div><div class="line"><span class="attr">    image:</span> redis</div><div class="line"><span class="attr">volumes:</span></div><div class="line"><span class="attr">  logvolume01:</span> &#123;&#125;</div></pre></td></tr></table></figure>
@@ -492,7 +480,7 @@
           
             <div class="site-state-item site-state-categories">
               
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">1</span>
                 <span class="site-state-item-name">分类</span>
               
             </div>
@@ -501,7 +489,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">1</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
