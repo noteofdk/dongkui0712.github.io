@@ -1,0 +1,711 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="go,docker,ssh," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta name="description" content="Ivan Daniluk 是一位我很崇敬的大牛。该文翻译自他的一篇博文。该文研究了 docker 中拉取 github 私有仓库时涉及的权限处理问题。涵盖 go 包管理、docker、ssh 等。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【翻译】docker 中拉取私库">
+<meta property="og:url" content="http://dongkui0712.github.io/2016/10/27/trans-go_get_for_private_repos_in_docker/index.html">
+<meta property="og:site_name" content="DongKui's Note">
+<meta property="og:description" content="Ivan Daniluk 是一位我很崇敬的大牛。该文翻译自他的一篇博文。该文研究了 docker 中拉取 github 私有仓库时涉及的权限处理问题。涵盖 go 包管理、docker、ssh 等。">
+<meta property="og:updated_time" content="2016-10-27T03:27:11.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【翻译】docker 中拉取私库">
+<meta name="twitter:description" content="Ivan Daniluk 是一位我很崇敬的大牛。该文翻译自他的一篇博文。该文研究了 docker 中拉取 github 私有仓库时涉及的权限处理问题。涵盖 go 包管理、docker、ssh 等。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '6311218847856723000',
+      author: 'Author'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://dongkui0712.github.io/2016/10/27/trans-go_get_for_private_repos_in_docker/"/>
+
+
+  <title> 【翻译】docker 中拉取私库 | DongKui's Note </title>
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">DongKui's Note</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">仰望星空，脚踏实地！</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                【翻译】docker 中拉取私库
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-10-27T09:35:25+08:00" content="2016-10-27">
+              2016-10-27
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/翻译/" itemprop="url" rel="index">
+                    <span itemprop="name">翻译</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/10/27/trans-go_get_for_private_repos_in_docker/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/27/trans-go_get_for_private_repos_in_docker/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Ivan Daniluk 是一位我很崇敬的大牛。该文翻译自他的一篇博文。该文研究了 docker 中拉取 github 私有仓库时涉及的权限处理问题。涵盖 go 包管理、docker、ssh 等。<br><a id="more"></a></p>
+<p><a href="https://divan.github.io/" target="_blank" rel="external">博客</a></p>
+<p><a href="https://divan.github.io/posts/go_get_private/" target="_blank" rel="external">原文: divan’s blog</a></p>
+<blockquote>
+<p>插入视频：<a href="https://youtu.be/KyuFeiG3Y60" target="_blank" rel="external">GopherCon 2016: Ivan Danyliuk - Visualizing Concurrency in Go</a> </p>
+</blockquote>
+<p>虽然 go 社区在依赖管理方面一直朝着稳定、易于理解的模式和实践发展，但是依然有很多令人疑惑的地方。其中之一就发生在用容器进行涉及私有仓库依赖的自动可重复的构建的过程中。</p>
+<p>当用 go get 时，Github 私库经常是疑惑的源头。但有个很容易的变通办法，只需要在 <code>.gitconfig</code> 中增加两行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[url &quot;git@github.com:&quot;]</div><div class="line">	insteadOf = https://github.com/</div></pre></td></tr></table></figure>
+<p>或者一行解决：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git config --global url.&quot;git@github.com:&quot;.insteadOf &quot;https://github.com/&quot;</div></pre></td></tr></table></figure></p>
+<p>当在容器中进行构建时，发生了最令人疑惑的事情。下面以当前最流行的容器 Docker 为例说明。</p>
+<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>假设有两个包 <code>github.com/company/foo</code> 和 <code>github.com/company/bar</code>，<code>foo</code> 中导入了 <code>bar</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">foo.go:</div><div class="line">import &quot;github.com/company/bar&quot;</div></pre></td></tr></table></figure>
+<p>正常的流程是：设置 GOPATH、SSH 密钥对、gitconfig 就好了，简单的命令 <code>go get github.com/company/foo</code> 能搞定一切，下载两个包。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ go get -v github.com/company/foo</div><div class="line">github.com/company/foo (download)</div><div class="line">github.com/company/bar (download)</div></pre></td></tr></table></figure>
+<p>但是现在，我们想让这个构建过程在任何设备上可复现，甚至在一个 CI 实例上，故而选择在 Docker 容器中打包一切。可以用基于官方 golang 的 Dockerfile：</p>
+<p><strong>Dockerfile</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">FROM golang:1.6</div><div class="line"></div><div class="line">ADD . /go/src/github.com/company/foo</div><div class="line">CMD cd /go/src/github.com/company/foo; go get github.com/company/bar &amp;&amp; go build -o /go/bin/foo</div></pre></td></tr></table></figure></p>
+<p><strong>Build script</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">docker build -t foo-build . 				# build image</div><div class="line">docker run --name=foo-build foo-build		# compile binary</div><div class="line">docker cp foo-build:/foo foo				# copy binary to fs</div><div class="line">docker rm -f foo-build						# remove container</div><div class="line">docker rmi -f foo-build						# remove image</div></pre></td></tr></table></figure></p>
+<p>这种方式不奏效，因为用于构建（foo-build）的 Docker 容器没有包含 <code>bar</code> 的依赖、<code>ssh</code> 密钥对以及合适的 gitconfig。而且很明显，简单地增加密钥对并不可行（it’s not trivial simply to add the keys），因为你必须处理以 SSH 为主的一大堆障碍。那，我们就尽快搞定吧。</p>
+<h1 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h1><h2 id="ssh-与-https"><a href="#ssh-与-https" class="headerlink" title="ssh 与 https"></a>ssh 与 https</h2><p>首先，构建（build）阶段（<code>docker run ...</code>）会遇到如下错误：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># cd .; git clone https://github.com/company/bar /go/src/github.com/company/bar</div><div class="line">Cloning into &apos;/go/src/github.com/company/bar&apos;...</div><div class="line">fatal: could not read Username for &apos;https://github.com&apos;: No such device or address</div><div class="line">package github.com/company/bar: exit status 128</div></pre></td></tr></table></figure>
+<p>意思是：你 Github 的权限允许用 SSH 密钥，但 <code>go get</code> 援引的 <code>git</code> 命令试图通过 HTTPS 途径克隆仓库，而你却没有配置证书。</p>
+<p>变通办法很简单，该问开始就有描述。我们只需要在 Dockerfile 中的 <code>go get</code> 前增加：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">RUN echo &quot;[url \&quot;git@github.com:\&quot;]\n\tinsteadOf = https://github.com/&quot; &gt;&gt; /root/.gitconfig</div></pre></td></tr></table></figure>
+<h2 id="密钥"><a href="#密钥" class="headerlink" title="密钥"></a>密钥</h2><p>下一个错误是主机 key 认证错误：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"># cd .; git clone https://github.com/company/bar /go/src/github.com/company/bar</div><div class="line">Cloning into &apos;/go/src/github.com/company/bar&apos;...</div><div class="line">Host key verification failed.</div><div class="line">fatal: Could not read from remote repository.</div><div class="line"></div><div class="line">Please make sure you have the correct access rights</div><div class="line">and the repository exists.</div><div class="line">package github.com/company/bar: exit status 128</div></pre></td></tr></table></figure></p>
+<p>这是因为我们的 Docker 容器还没有 SSH 密钥。the right approach is not trivial, 我们继续。</p>
+<p>首先，我们想要每个开发者或者 CI 使用自己的私库的密钥。如果一个人有 <code>foo</code> 的权限，那么他肯定有 <code>bar</code> 的权限，密钥通常在 <code>~/.ssh/id_rsa</code> 文件。</p>
+<p>然而，不可以将密钥复制到容器。 Dockerfile 的 ADD 和 COPY 命令只能复制当前目录的文件，故而无法直接用 <code>ADD ~/.ssh/ /root/ssh</code>。解决办法之一是写 wrapper script 先把私钥复制到本地，再复制到容器。但这中方式仍然不安全，而且不优雅。</p>
+<p>我们可以通过 docker 的 <code>-v</code> 命令行标志挂载数据卷。第一种办法就是简单粗暴地将整个 <code>~/.ssh</code> 目录挂载，但很难</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker run --name=foo-build -v ~/.ssh:/root/.ssh foo-build</div></pre></td></tr></table></figure>
+<p>该命令在 MacOS X 正常，但在 Linux 则不行。原因是 <code>~/.ssh/config</code> 文件的所有权。 <code>ssh</code> 期望该文件与当前用户拥有相同的所有权。容器内部，用户是 root 权限，但挂载的目录一般是普通的 Linux 用户的权限，即 developer。容器内如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ ls ~/.ssh/config</div><div class="line">-rw-r--r--  1 1000  1000  147 Jun  1 19:20 /root/.ssh/config</div></pre></td></tr></table></figure>
+<p>让 SSH 报错退出：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Bad owner or permissions on ~/.ssh/config</div></pre></td></tr></table></figure></p>
+<p>The solution is to mount only the key and workaround host checking later.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker run --name=foo-build -v ~/.ssh/id_rsa:/root/.ssh/id_rsa foo-build</div></pre></td></tr></table></figure>
+<p>报错依然相同。但当带 <code>-t</code> 参数，返回如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ docker run --name=foo-build -v ~/.ssh/id_rsa:/root/.ssh/id_rsa -t foo-build</div><div class="line">The authenticity of host &apos;github.com (192.30.252.128)&apos; can&apos;t be established.</div><div class="line">RSA key fingerprint is 16:27:ac:a5:76:28:2d:36:63:1b:56:4d:eb:df:a6:48.</div><div class="line">Are you sure you want to continue connecting (yes/no)?</div></pre></td></tr></table></figure>
+<p>当然，我们并不想手动与 SSH 实时交互。故而，我们需要找到一个强制执行的方式。有个称为 StrictHostChecking 的 SSH 客户端选项。</p>
+<h3 id="StrictHostChecking"><a href="#StrictHostChecking" class="headerlink" title="StrictHostChecking"></a>StrictHostChecking</h3><p>通常，你有按 <code>~/.ssh/known_hosts</code> 命名的文件，里面有已知主机的信息，但在容器内却没有。所以我们需要用客户端选项弃用这些检测。最简单的方式是将该选项放入 <code>~/.ssh/config</code> 文件（那个存在权限问题的文件）。</p>
+<p>但是，我们只需要一个选项，故而在容器内直接创建该文件（create this file on the fly inside the container）是可行的。在 Dockerifle 内增加</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">RUN mkdir /root/.ssh &amp;&amp; echo &quot;StrictHostKeyChecking no &quot; &gt; /root/.ssh/config</div></pre></td></tr></table></figure>
+<p>重新执行 <code>docker run</code> ，这次会成功。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>最终的 Dockerfile：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">FROM golang:1.6</div><div class="line"></div><div class="line">RUN echo &quot;[url \&quot;git@github.com:\&quot;]\n\tinsteadOf = https://github.com/&quot; &gt;&gt; /root/.gitconfig</div><div class="line">RUN mkdir /root/.ssh &amp;&amp; echo &quot;StrictHostKeyChecking no &quot; &gt; /root/.ssh/config</div><div class="line">ADD .  /go/src/github.com/company/foo</div><div class="line">CMD cd /go/src/github.com/company/foo &amp;&amp; go get github.com/company/bar &amp;&amp; go build -o /foo</div></pre></td></tr></table></figure>
+<p>构建步骤：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">docker build -t foo-build .</div><div class="line">docker run --name=foo-build -v ~/.ssh/id_rsa:/root/.ssh/id_rsa foo-build</div><div class="line">docker cp foo-build:/foo foo</div><div class="line">docker rm -f foo-build</div><div class="line">docker rmi -f foo-build</div></pre></td></tr></table></figure></p>
+<p>你可以将这些步骤加入 Makefile 或者定制构建脚本，在本地、CI 和其他任何地方安全使用。</p>
+<p>SSH 私钥只有一次被复制到暂时的容器中用于构建，之后马上被移除。优雅安全的解决方式。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/go/" rel="tag">#go</a>
+          
+            <a href="/tags/docker/" rel="tag">#docker</a>
+          
+            <a href="/tags/ssh/" rel="tag">#ssh</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/14/list-read/" rel="next" title="Read List">
+                <i class="fa fa-chevron-left"></i> Read List
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/10/27/trans-go_get_for_private_repos_in_docker/"
+     data-title="【翻译】docker 中拉取私库"
+     data-content=""
+     data-url="http://dongkui0712.github.io/2016/10/27/trans-go_get_for_private_repos_in_docker/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/10/27/trans-go_get_for_private_repos_in_docker/"
+           data-title="【翻译】docker 中拉取私库" data-url="http://dongkui0712.github.io/2016/10/27/trans-go_get_for_private_repos_in_docker/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="DongKui" />
+          <p class="site-author-name" itemprop="name">DongKui</p>
+          <p class="site-description motion-element" itemprop="description">散卷凉盏伴携程，一蓑烟雨任平生</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">5</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/dongkui0712" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/dongkui0712" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/5535040657" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+	
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#问题"><span class="nav-number">1.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解决办法"><span class="nav-number">2.</span> <span class="nav-text">解决办法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ssh-与-https"><span class="nav-number">2.1.</span> <span class="nav-text">ssh 与 https</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#密钥"><span class="nav-number">2.2.</span> <span class="nav-text">密钥</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#StrictHostChecking"><span class="nav-number">2.2.1.</span> <span class="nav-text">StrictHostChecking</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">DongKui</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"dongkui"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+<script type="text/javascript" async src="//push.zhanzhang.baidu.com/push.js">
+</script>
+
+
+</body>
+</html>
