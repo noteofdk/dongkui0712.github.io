@@ -1,0 +1,778 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="docker,k8s,k8s network," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta name="description" content="本文整理网宿科技云计算架构师 吴龙辉 2017年7月11日在 DockerOne.io 的技术分享。
+重点说明 Kubernetes 和 Docker 网络，从而来探索 Pass 的网络模型设计，主要包括一下几方面：
+
+Pass 和 Iass 的网络需求
+Pass 的网络模型设计
+Kubernetes 和 Docker 的网络说明
+
+
+PaaS和IaaS的网络需求概念上来说，IaaS是基础架构即服">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PaaS之网络模型设计--分享整理">
+<meta property="og:url" content="http://dongkui0712.github.io/2017/07/11/note-networkModelOfPaaS/index.html">
+<meta property="og:site_name" content="DongKui's Note">
+<meta property="og:description" content="本文整理网宿科技云计算架构师 吴龙辉 2017年7月11日在 DockerOne.io 的技术分享。
+重点说明 Kubernetes 和 Docker 网络，从而来探索 Pass 的网络模型设计，主要包括一下几方面：
+
+Pass 和 Iass 的网络需求
+Pass 的网络模型设计
+Kubernetes 和 Docker 的网络说明
+
+
+PaaS和IaaS的网络需求概念上来说，IaaS是基础架构即服">
+<meta property="og:image" content="http://7xq4tu.com1.z0.glb.clouddn.com/image/blog/docker/host_network.png">
+<meta property="og:image" content="http://7xq4tu.com1.z0.glb.clouddn.com/image/blog/docker/pod_network.png">
+<meta property="og:image" content="http://7xq4tu.com1.z0.glb.clouddn.com/image/blog/docker/communication_within_pods.png">
+<meta property="og:image" content="http://7xq4tu.com1.z0.glb.clouddn.com/image/blog/docker/flannel_network.png">
+<meta property="og:image" content="http://7xq4tu.com1.z0.glb.clouddn.com/image/blog/docker/ingress_controller_arch.png">
+<meta property="og:image" content="http://7xq4tu.com1.z0.glb.clouddn.com/image/blog/docker/network_model.png">
+<meta property="og:updated_time" content="2017-07-11T15:22:28.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PaaS之网络模型设计--分享整理">
+<meta name="twitter:description" content="本文整理网宿科技云计算架构师 吴龙辉 2017年7月11日在 DockerOne.io 的技术分享。
+重点说明 Kubernetes 和 Docker 网络，从而来探索 Pass 的网络模型设计，主要包括一下几方面：
+
+Pass 和 Iass 的网络需求
+Pass 的网络模型设计
+Kubernetes 和 Docker 的网络说明
+
+
+PaaS和IaaS的网络需求概念上来说，IaaS是基础架构即服">
+<meta name="twitter:image" content="http://7xq4tu.com1.z0.glb.clouddn.com/image/blog/docker/host_network.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '6311218847856723000',
+      author: 'Author'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://dongkui0712.github.io/2017/07/11/note-networkModelOfPaaS/"/>
+
+
+  <title> PaaS之网络模型设计--分享整理 | DongKui's Note </title>
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">DongKui's Note</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">仰望星空，脚踏实地！</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                PaaS之网络模型设计--分享整理
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2017-07-11T22:56:49+08:00" content="2017-07-11">
+              2017-07-11
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/k8s/" itemprop="url" rel="index">
+                    <span itemprop="name">k8s</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/07/11/note-networkModelOfPaaS/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/07/11/note-networkModelOfPaaS/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文整理网宿科技云计算架构师 吴龙辉 2017年7月11日在 DockerOne.io 的技术分享。</p>
+<p>重点说明 Kubernetes 和 Docker 网络，从而来探索 Pass 的网络模型设计，主要包括一下几方面：</p>
+<ul>
+<li>Pass 和 Iass 的网络需求</li>
+<li>Pass 的网络模型设计</li>
+<li>Kubernetes 和 Docker 的网络说明</li>
+</ul>
+<hr>
+<h1 id="PaaS和IaaS的网络需求"><a href="#PaaS和IaaS的网络需求" class="headerlink" title="PaaS和IaaS的网络需求"></a>PaaS和IaaS的网络需求</h1><p>概念上来说，IaaS是基础架构即服务，PaaS是平台即服务。</p>
+<h2 id="共同点"><a href="#共同点" class="headerlink" title="共同点"></a>共同点</h2><p>从服务化角度来说两者对于网络的需求有共同点：</p>
+<ul>
+<li>一台宿主机的网络隔离，一台宿主机要运行多个环境黑盒（VM或者容器），这时候每个环境黑盒的网络需要隔离。</li>
+<li>环境变更后的访问一致性，比如VM或者容器迁移到其他宿主机的时候，如何保证外部访问不感知，比较通用的解决方案网络代理层来解决。</li>
+</ul>
+<h2 id="不同点"><a href="#不同点" class="headerlink" title="不同点"></a>不同点</h2><p>实现上来说，IaaS是VM管理，PaaS是容器编排，两者的网络也会有些不同：</p>
+<ul>
+<li>容器比VM轻量级，启停更快，更方便迁移，所以PaaS的整个调度策略会更灵活，容器的迁移频率是高于VM，当容器迁移的时候，PaaS需要更加快速的解决变化后的网络访问。</li>
+<li>VM安全高于容器，IaaS这部分会更多在隔离和安全上有所考虑，当然这个可能是公有云和私有云的一个定位，个人认为IaaS比较适合公有云，PaaS比较适合私有云。</li>
+</ul>
+<h1 id="第二部分-PaaS的网络模型设计"><a href="#第二部分-PaaS的网络模型设计" class="headerlink" title="第二部分 PaaS的网络模型设计"></a>第二部分 PaaS的网络模型设计</h1><p>以上部分我们讨论了PaaS网络需求，总结来说PaaS需要解决宿主机的网络隔离和环境变更后的访问一致性问题，然后在灵活性上需要更加注重，私有云的定位可以减少因为安全和隔离的代价，保证高性能。</p>
+<h2 id="宿主机的网络隔离"><a href="#宿主机的网络隔离" class="headerlink" title="宿主机的网络隔离"></a>宿主机的网络隔离</h2><p>网络隔离最基本问题就是要解决端口冲突，一种思路是容器通过端口映射访问，宿主机的端口由系统分配避免端口冲突，这种方式对使用的便利性是有意义的，但并不理想，因为需要对各种端口进行映射，这会限制宿主机的能力，在容器编排上也增加了复杂度。</p>
+<p>端口是个稀缺资源，这就需要解决端口冲突和动态分配端口问题。这不但使调度复杂化，而且应用程序的配置也将变得复杂，具体表现为端口冲突、重用和耗尽。</p>
+<p>NAT将地址空间分段的做法引入了额外的复杂度。比如容器中应用所见的IP并不是对外暴露的IP，因为网络隔离，容器中的应用实际上只能检测到容器的IP，但是需要对外宣称的则是宿主机的IP，这种信息的不对称将带来诸如破坏自注册机制等问题。</p>
+<p>所以就要引入一层网络虚拟层来解决网络隔离，现在说的比较多的大二层网络，L2 over L3，比如OVS, Flannel, Calico等等。</p>
+<h2 id="环境变更后的访问一致性"><a href="#环境变更后的访问一致性" class="headerlink" title="环境变更后的访问一致性"></a>环境变更后的访问一致性</h2><p>一个通用方案来说通过代理层提供不变的访问入口，像Openstack的网络节点就是一个L3(IP)的访问入口，而PaaS更多的是提供L4（TCP, UDP）和L7(HTTP)的访问，L4比较流行的开源方案有LVS，L7的是Nginx和Haproxy.</p>
+<p>因此PaaS的网络结构有：</p>
+<ul>
+<li>物理网络</li>
+<li>虚拟层网络</li>
+<li>代理层网络</li>
+</ul>
+<h1 id="第三部分-Kubernetes和Docker的网络说明"><a href="#第三部分-Kubernetes和Docker的网络说明" class="headerlink" title="第三部分 Kubernetes和Docker的网络说明"></a>第三部分 Kubernetes和Docker的网络说明</h1><p>Kubernete+Docker作为目前最流行的开源PaaS实现，通过其实现细节可以更加理解PaaS的网络模型实践。</p>
+<h2 id="容器网络"><a href="#容器网络" class="headerlink" title="容器网络"></a>容器网络</h2><p>Docker使用Linux桥接，在宿主机虚拟一个Docker容器网桥(docker0)，Docker启动一个容器时会根据Docker网桥的网段分配给容器一个IP地址，称为Container-IP，同时Docker网桥是每个容器的默认网关。因为在同一宿主机内的容器都接入同一个网桥，这样容器之间就能够通过容器的Container-IP直接通信。</p>
+<p><img src="http://7xq4tu.com1.z0.glb.clouddn.com/image/blog/docker/host_network.png" alt=""></p>
+<p>但是Docker网桥是宿主机虚拟出来的，并不是真实存在的网络设备，外部网络是无法寻址到的，这也意味着外部网络无法通过直接Container-IP访问到容器。</p>
+<h2 id="Pod内部容器通信"><a href="#Pod内部容器通信" class="headerlink" title="Pod内部容器通信"></a>Pod内部容器通信</h2><p>Kubernetes中Pod是容器的集合，Pod包含的容器都运行在同一个宿主机上，这些容器将拥有同样的网络空间，容器之间能够互相通信，它们能够在本地访问其他容器的端口。</p>
+<p>实际上Pod都包含一个网络容器，它不做任何事情，只是用来接管Pod的网络，业务容器通过加入网络容器的网络从而实现网络共享。</p>
+<p>Pod的启动方式类似于：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ docker run -p 80:80 --name network-container -d &lt;network-container-image&gt;</div><div class="line">$ docker run --net container:network-container -d &lt;image&gt;</div></pre></td></tr></table></figure></p>
+<p>所以Pod的网络实际上就是Pod中网络容器的网络，所以往往就可以认为Pod网络就是容器网络，在理解Kubernetes网络的时候这是必须要需要清楚的,比如说Pod的Pod-IP就是网络容器的Container-IP。</p>
+<p><img src="http://7xq4tu.com1.z0.glb.clouddn.com/image/blog/docker/pod_network.png" alt=""></p>
+<h2 id="Pod间通信"><a href="#Pod间通信" class="headerlink" title="Pod间通信"></a>Pod间通信</h2><p>Kubernetes网络模型是一个扁平化网络平面，在这个网络平面内，Pod作为一个网络单元同Kubernetes Node的网络处于同一层级。</p>
+<p><img src="http://7xq4tu.com1.z0.glb.clouddn.com/image/blog/docker/communication_within_pods.png" alt=""></p>
+<p>在这个网络拓扑中满足以下条件：</p>
+<ul>
+<li>Pod间通信：Pod1和Pod2（同主机），Pod1和Pod3(跨主机)能够通信</li>
+<li>Node与Pod间通信：Node1和Pod1/ Pod2(同主机)，Pod3(跨主机)能够通信</li>
+</ul>
+<p>为此需要实现：</p>
+<ul>
+<li>Pod的Pod-IP是全局唯一的。其实做法也很简单，因为Pod的Pod-IP是Docker网桥分配的，所以将不同Kubernetes Node的 Docker网桥配置成不同的IP网段即可。</li>
+<li>Node上的Pod/容器原生能通信，但是Node之间的Pod/容器如何通信的，这就需要对Docker进行增强，在容器集群中创建一个覆盖网络(Overlay Network)，联通各个节点，目前可以通过第三方网络插件来创建覆盖网络，比如Flannel和Open vSwitch等等。</li>
+</ul>
+<h3 id="以Flannel来说"><a href="#以Flannel来说" class="headerlink" title="以Flannel来说"></a>以Flannel来说</h3><p>Flannel由CoreOS团队设计开发的一个覆盖网络工具，Flannel 通过在集群中创建一个覆盖网络，为主机设定一个子网，通过隧道协议封装容器之间的通信报文，实现容器的跨主机通信。Flannel将会运行在所有的Node之上，Flannel实现的网络结构如图所示：</p>
+<p><img src="http://7xq4tu.com1.z0.glb.clouddn.com/image/blog/docker/flannel_network.png" alt=""></p>
+<h2 id="代理层"><a href="#代理层" class="headerlink" title="代理层"></a>代理层</h2><p>Kubernetes中的Service就是在Pod之间起到服务代理的作用，对外表现为一个单一访问接口，将请求转发给Pod，Service的网络转发是Kubernetes实现服务编排的关键一环。</p>
+<p>Service都会生成一个虚拟IP，称为Service-IP， Kuberenetes Porxy组件负责实现Service-IP路由和转发，在容器覆盖网络之上又实现了虚拟转发网络。</p>
+<p>Kubernetes Porxy实现了以下功能：</p>
+<ul>
+<li>转发访问Service的Service-IP的请求到Endpoints(即Pod-IP)。</li>
+<li>监控Service和Endpoints的变化，实时刷新转发规则。</li>
+<li>负载均衡能力。</li>
+</ul>
+<p>Kubernetes Porxy是一种分布式L3代理转发， 默认是居于Iptables实现，这从设计上很值得借鉴，但是性能部分有待验证。</p>
+<p>Kubernetes中的Ingress提供了一个统一的对外代理入口配置，比如HTTP的访问配置，然后通过实现Ingress-Controller</p>
+<p>Ingress-Controller的实现可以用Nginx,LVS等等，以Nginx来说，就Ingress-Controller监控Kubernetes API, 生成Nginx配置，然后加载生效，而Nginx跟Pod的通信，可以走Service，但是考虑到Kubernetes Porxy的性能问题，建议直接和Pod通信</p>
+<p>下面就是Ingress Controller一个实现图：</p>
+<p><img src="http://7xq4tu.com1.z0.glb.clouddn.com/image/blog/docker/ingress_controller_arch.png" alt=""></p>
+<p>整体来看的一个网络模型如下：</p>
+<p><img src="http://7xq4tu.com1.z0.glb.clouddn.com/image/blog/docker/network_model.png" alt=""></p>
+<p>其中就包含物理层，网络虚拟层，代理层。</p>
+<hr>
+<h1 id="QA"><a href="#QA" class="headerlink" title="QA"></a>QA</h1><h2 id="Q-有这么多虚拟网络，覆盖网络，会不会有网络延迟？"><a href="#Q-有这么多虚拟网络，覆盖网络，会不会有网络延迟？" class="headerlink" title="Q: 有这么多虚拟网络，覆盖网络，会不会有网络延迟？"></a>Q: 有这么多虚拟网络，覆盖网络，会不会有网络延迟？</h2><p>A: 网络虚拟会会带来性能损耗，比如Flannel需要将报文封装到UDP包中传输，这中间的封包解包就会带来损耗。所以网络虚拟化的部分，软件的实现还有待优化，其实更好的方式是硬件支持，比如现在很多提的SDN网络</p>
+<h2 id="Q-Pod为什么要有个网络容器"><a href="#Q-Pod为什么要有个网络容器" class="headerlink" title="Q: Pod为什么要有个网络容器"></a>Q: Pod为什么要有个网络容器</h2><p>A: 一方面这是解耦，通过网络容器来负责网络配置，这样对于业务容器来说稳定性会更高，比如有多个业务容器中，某一个业务容器断了，这样就不会导致网络中断。</p>
+<h2 id="Q-ingress-controller实现除了使用LVS和Nginx外，能否采用商用负载设备来实现？实现是否取决于和k8s-API的对接？"><a href="#Q-ingress-controller实现除了使用LVS和Nginx外，能否采用商用负载设备来实现？实现是否取决于和k8s-API的对接？" class="headerlink" title="Q ingress-controller实现除了使用LVS和Nginx外，能否采用商用负载设备来实现？实现是否取决于和k8s API的对接？"></a>Q ingress-controller实现除了使用LVS和Nginx外，能否采用商用负载设备来实现？实现是否取决于和k8s API的对接？</h2><p>A 可以啊，只要有接口都可以实现，通过实现Ingress-Controller，比如对接F5的硬件设备，只要F5支持相关的API。</p>
+<h2 id="Q-ingress的流量默认是先走Service然后到Pod，还是直接到Pod？"><a href="#Q-ingress的流量默认是先走Service然后到Pod，还是直接到Pod？" class="headerlink" title="Q ingress的流量默认是先走Service然后到Pod，还是直接到Pod？"></a>Q ingress的流量默认是先走Service然后到Pod，还是直接到Pod？</h2><p>A 取决你的实现，官方的实现是先走Sevice再到Pod, 我们是直接到Pod</p>
+<h2 id="Q-在某些应用场景下，pod的IP需要固定，而不是重启之后IP可能会变化，请问如何满足这种场景的需求？"><a href="#Q-在某些应用场景下，pod的IP需要固定，而不是重启之后IP可能会变化，请问如何满足这种场景的需求？" class="headerlink" title="Q 在某些应用场景下，pod的IP需要固定，而不是重启之后IP可能会变化，请问如何满足这种场景的需求？"></a>Q 在某些应用场景下，pod的IP需要固定，而不是重启之后IP可能会变化，请问如何满足这种场景的需求？</h2><p>A Pod的Ip需要固定的话，一种方式是修改docker的代码，据我所知腾讯有实现过。<br>另外的方案就是做L3的代理，给pod一个浮动IP,有点像Openstack的实现。</p>
+<h2 id="Q-Calico默认全网是打通的，怎么做基于网段之间的隔离？"><a href="#Q-Calico默认全网是打通的，怎么做基于网段之间的隔离？" class="headerlink" title="Q: Calico默认全网是打通的，怎么做基于网段之间的隔离？"></a>Q: Calico默认全网是打通的，怎么做基于网段之间的隔离？</h2><p>A: 目前来说这个如果要做网段隔离，可能偏向安全性比较高的场景，我们目前是做私有云场景，对隔离的要求没那么高。所以如果要做隔离的话，可以参考Openstack的OVS方案</p>
+<h2 id="Q-你提到-kube-proxy-性能值得商榷，那么社区有好的替代方案吗？"><a href="#Q-你提到-kube-proxy-性能值得商榷，那么社区有好的替代方案吗？" class="headerlink" title="Q: 你提到 kube-proxy 性能值得商榷，那么社区有好的替代方案吗？"></a>Q: 你提到 kube-proxy 性能值得商榷，那么社区有好的替代方案吗？</h2><p>A: 我们目前的做法是直接Nginx和Pod通信，不走kube-proxy</p>
+<h2 id="Q-k8s-不同的namespaces网络是如何做隔离的，overlay-flannel没有对应的网络策略，贵公司是如何做到的，关于k8s-proxy性能问题在1-3版本之后得到了很大的改善这个有测试过吗？"><a href="#Q-k8s-不同的namespaces网络是如何做隔离的，overlay-flannel没有对应的网络策略，贵公司是如何做到的，关于k8s-proxy性能问题在1-3版本之后得到了很大的改善这个有测试过吗？" class="headerlink" title="Q k8s 不同的namespaces网络是如何做隔离的，overlay flannel没有对应的网络策略，贵公司是如何做到的，关于k8s proxy性能问题在1.3版本之后得到了很大的改善这个有测试过吗？"></a>Q k8s 不同的namespaces网络是如何做隔离的，overlay flannel没有对应的网络策略，贵公司是如何做到的，关于k8s proxy性能问题在1.3版本之后得到了很大的改善这个有测试过吗？</h2><p>A : 目前k8s没有做隔离，只要知道IP都可以通信。Flannel的部分没有太多策略，如果要性能和定制化的需求，建议考虑OVS。 K8S PROXY的性能没有测试过。</p>
+<h2 id="Q-代理入口上有哪些方法解决单点失效的问题呢？"><a href="#Q-代理入口上有哪些方法解决单点失效的问题呢？" class="headerlink" title="Q: 代理入口上有哪些方法解决单点失效的问题呢？"></a>Q: 代理入口上有哪些方法解决单点失效的问题呢？</h2><p>A: 这个比较传统了，软件实现就keepalived之类的</p>
+<h2 id="Q-kube-proxy在通过iptables分发请求到各个endpoint的时候，跨主机的连接是否做了SNAT？如果做了SNAT，在高并发请求下，是否会存在源端口枯竭问题？有无这方面实践或者参考。谢谢。"><a href="#Q-kube-proxy在通过iptables分发请求到各个endpoint的时候，跨主机的连接是否做了SNAT？如果做了SNAT，在高并发请求下，是否会存在源端口枯竭问题？有无这方面实践或者参考。谢谢。" class="headerlink" title="Q: kube proxy在通过iptables分发请求到各个endpoint的时候，跨主机的连接是否做了SNAT？如果做了SNAT，在高并发请求下，是否会存在源端口枯竭问题？有无这方面实践或者参考。谢谢。"></a>Q: kube proxy在通过iptables分发请求到各个endpoint的时候，跨主机的连接是否做了SNAT？如果做了SNAT，在高并发请求下，是否会存在源端口枯竭问题？有无这方面实践或者参考。谢谢。</h2><p>A: 跨主机通信还是走L3 over L2, 比如flannel，只是在机器上做Iptable的NAT。但是Iptable的规则数目有限，所以比较有顾虑。</p>
+<h2 id="Q-ingress-controller比较好的库都有哪些，分别基于nginx-haproxy-lvs的"><a href="#Q-ingress-controller比较好的库都有哪些，分别基于nginx-haproxy-lvs的" class="headerlink" title="Q: ingress-controller比较好的库都有哪些，分别基于nginx haproxy lvs的"></a>Q: ingress-controller比较好的库都有哪些，分别基于nginx haproxy lvs的</h2><p>A: Github有蛮多实现的，其实还是比较简单的，像go语言的话，直接套用官方提供的demo即可，其他语言可以对接K8S的API实现。</p>
+<h2 id="Q-这么多层的网络，多层转发后网络性能怎么样？有没有办法实现高速数据转发解决方案？"><a href="#Q-这么多层的网络，多层转发后网络性能怎么样？有没有办法实现高速数据转发解决方案？" class="headerlink" title="Q: 这么多层的网络，多层转发后网络性能怎么样？有没有办法实现高速数据转发解决方案？"></a>Q: 这么多层的网络，多层转发后网络性能怎么样？有没有办法实现高速数据转发解决方案？</h2><p>A: 代理层，虚拟层都会有损耗，这个就是要考虑管理成本和性能的权衡了。如何要实现高性能的话，就是要往SDN网络研究，通过硬件层的支持来实现虚拟化。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/docker/" rel="tag">#docker</a>
+          
+            <a href="/tags/k8s/" rel="tag">#k8s</a>
+          
+            <a href="/tags/k8s-network/" rel="tag">#k8s network</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/27/trans-go_get_for_private_repos_in_docker/" rel="next" title="【翻译】docker 中拉取私库">
+                <i class="fa fa-chevron-left"></i> 【翻译】docker 中拉取私库
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2017/07/11/note-networkModelOfPaaS/"
+     data-title="PaaS之网络模型设计--分享整理"
+     data-content=""
+     data-url="http://dongkui0712.github.io/2017/07/11/note-networkModelOfPaaS/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/07/11/note-networkModelOfPaaS/"
+           data-title="PaaS之网络模型设计--分享整理" data-url="http://dongkui0712.github.io/2017/07/11/note-networkModelOfPaaS/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="DongKui" />
+          <p class="site-author-name" itemprop="name">DongKui</p>
+          <p class="site-description motion-element" itemprop="description">散卷凉盏伴携程，一蓑烟雨任平生</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">6</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/dongkui0712" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/dongkui0712" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/5535040657" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+	
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#PaaS和IaaS的网络需求"><span class="nav-number">1.</span> <span class="nav-text">PaaS和IaaS的网络需求</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#共同点"><span class="nav-number">1.1.</span> <span class="nav-text">共同点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#不同点"><span class="nav-number">1.2.</span> <span class="nav-text">不同点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第二部分-PaaS的网络模型设计"><span class="nav-number">2.</span> <span class="nav-text">第二部分 PaaS的网络模型设计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#宿主机的网络隔离"><span class="nav-number">2.1.</span> <span class="nav-text">宿主机的网络隔离</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#环境变更后的访问一致性"><span class="nav-number">2.2.</span> <span class="nav-text">环境变更后的访问一致性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第三部分-Kubernetes和Docker的网络说明"><span class="nav-number">3.</span> <span class="nav-text">第三部分 Kubernetes和Docker的网络说明</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#容器网络"><span class="nav-number">3.1.</span> <span class="nav-text">容器网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pod内部容器通信"><span class="nav-number">3.2.</span> <span class="nav-text">Pod内部容器通信</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pod间通信"><span class="nav-number">3.3.</span> <span class="nav-text">Pod间通信</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#以Flannel来说"><span class="nav-number">3.3.1.</span> <span class="nav-text">以Flannel来说</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代理层"><span class="nav-number">3.4.</span> <span class="nav-text">代理层</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#QA"><span class="nav-number">4.</span> <span class="nav-text">QA</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Q-有这么多虚拟网络，覆盖网络，会不会有网络延迟？"><span class="nav-number">4.1.</span> <span class="nav-text">Q: 有这么多虚拟网络，覆盖网络，会不会有网络延迟？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q-Pod为什么要有个网络容器"><span class="nav-number">4.2.</span> <span class="nav-text">Q: Pod为什么要有个网络容器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q-ingress-controller实现除了使用LVS和Nginx外，能否采用商用负载设备来实现？实现是否取决于和k8s-API的对接？"><span class="nav-number">4.3.</span> <span class="nav-text">Q ingress-controller实现除了使用LVS和Nginx外，能否采用商用负载设备来实现？实现是否取决于和k8s API的对接？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q-ingress的流量默认是先走Service然后到Pod，还是直接到Pod？"><span class="nav-number">4.4.</span> <span class="nav-text">Q ingress的流量默认是先走Service然后到Pod，还是直接到Pod？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q-在某些应用场景下，pod的IP需要固定，而不是重启之后IP可能会变化，请问如何满足这种场景的需求？"><span class="nav-number">4.5.</span> <span class="nav-text">Q 在某些应用场景下，pod的IP需要固定，而不是重启之后IP可能会变化，请问如何满足这种场景的需求？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q-Calico默认全网是打通的，怎么做基于网段之间的隔离？"><span class="nav-number">4.6.</span> <span class="nav-text">Q: Calico默认全网是打通的，怎么做基于网段之间的隔离？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q-你提到-kube-proxy-性能值得商榷，那么社区有好的替代方案吗？"><span class="nav-number">4.7.</span> <span class="nav-text">Q: 你提到 kube-proxy 性能值得商榷，那么社区有好的替代方案吗？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q-k8s-不同的namespaces网络是如何做隔离的，overlay-flannel没有对应的网络策略，贵公司是如何做到的，关于k8s-proxy性能问题在1-3版本之后得到了很大的改善这个有测试过吗？"><span class="nav-number">4.8.</span> <span class="nav-text">Q k8s 不同的namespaces网络是如何做隔离的，overlay flannel没有对应的网络策略，贵公司是如何做到的，关于k8s proxy性能问题在1.3版本之后得到了很大的改善这个有测试过吗？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q-代理入口上有哪些方法解决单点失效的问题呢？"><span class="nav-number">4.9.</span> <span class="nav-text">Q: 代理入口上有哪些方法解决单点失效的问题呢？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q-kube-proxy在通过iptables分发请求到各个endpoint的时候，跨主机的连接是否做了SNAT？如果做了SNAT，在高并发请求下，是否会存在源端口枯竭问题？有无这方面实践或者参考。谢谢。"><span class="nav-number">4.10.</span> <span class="nav-text">Q: kube proxy在通过iptables分发请求到各个endpoint的时候，跨主机的连接是否做了SNAT？如果做了SNAT，在高并发请求下，是否会存在源端口枯竭问题？有无这方面实践或者参考。谢谢。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q-ingress-controller比较好的库都有哪些，分别基于nginx-haproxy-lvs的"><span class="nav-number">4.11.</span> <span class="nav-text">Q: ingress-controller比较好的库都有哪些，分别基于nginx haproxy lvs的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q-这么多层的网络，多层转发后网络性能怎么样？有没有办法实现高速数据转发解决方案？"><span class="nav-number">4.12.</span> <span class="nav-text">Q: 这么多层的网络，多层转发后网络性能怎么样？有没有办法实现高速数据转发解决方案？</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">DongKui</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"dongkui"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+<script type="text/javascript" async src="//push.zhanzhang.baidu.com/push.js">
+</script>
+
+
+</body>
+</html>
