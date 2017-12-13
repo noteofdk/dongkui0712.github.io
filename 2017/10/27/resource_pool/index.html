@@ -1,296 +1,141 @@
-<!doctype html>
+<!DOCTYPE html>
+<html lang="en">
 
 
-
-  
-
-
-<html class="theme-next mist use-motion">
 <head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>
+    Resource Pool | DongKui&#39;s Note
+  </title>
+  <meta name="description" content="散卷凉盏伴携程，一蓑烟雨任平生">
+  
+  <meta name="keywords" content="
+  resource,link
+  ">
+  
+  <meta name="author" content="DongKui">
 
+  <meta http-equiv="Cache-Control" content="no-transform"/>
+  <meta http-equiv="Cache-Control" content="no-siteapp">
 
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
-
-
-
-
-
-
-
+  <link rel="icon" type="image/x-icon" href="undefined">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  
 
   
-  
-  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
 
-
-
-
-
-
-
-<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
-
-
-  <meta name="keywords" content="resource,link," />
-
-
-
-
-
-
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.2" />
-
-
-
-
-
-
-<meta name="description" content="My resource pool">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Resource Pool">
-<meta property="og:url" content="http://dongkui0712.github.io/2017/10/27/resource_pool/index.html">
-<meta property="og:site_name" content="DongKui's Note">
-<meta property="og:description" content="My resource pool">
-<meta property="og:updated_time" content="2017-10-27T02:58:05.000Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Resource Pool">
-<meta name="twitter:description" content="My resource pool">
-
-
-
-<script type="text/javascript" id="hexo.configuration">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    scheme: 'Mist',
-    sidebar: {"position":"right","display":"hide"},
-    fancybox: true,
-    motion: true,
-    duoshuo: {
-      userId: '6311218847856723000',
-      author: 'Author'
-    }
-  };
-</script>
-
-
-
-
-  <link rel="canonical" href="http://dongkui0712.github.io/2017/10/27/resource_pool/"/>
-
-
-  <title> Resource Pool | DongKui's Note </title>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/vue/1.0.25-csp/vue.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
 </head>
 
-<body itemscope itemtype="//schema.org/WebPage" lang="en">
+<body id="replica-app">
 
-  
+<nav class="navbar-wrapper">
+  <div class="navbar">
+    <div class="container clearfix">
+      <a href="/" class="navbar-logo"><i class="fa fa-github"></i></a>
 
+      <div class="navbar-search float-left desktop-only">
+        <div class="navbar-search-form">
+          <label for="gsc-i-id1">This website</label>
+          <div id="google-search">
+            <gcse:search></gcse:search>
+          </div>
+        </div>
+      </div>
 
+      <ul class="navbar-nav float-left">
+        
+        <li><a href="/archives">Archives</a></li>
+        
+        
+        <li><a href="/categories">Categories</a></li>
+        
+        
+        <li><a href="/tags">Tags</a></li>
+        
+        
+        <li><a href="/atom.xml" target="_blank">RSS</a></li>
+        
+      </ul>
 
-
-
-
-
-
-
-
-  
-  
-    
-  
-
-  <div class="container one-collumn sidebar-position-right page-post-detail ">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
-      <div class="header-inner"><div class="site-meta ">
-  
-
-  <div class="custom-logo-site-title">
-    <a href="/"  class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <span class="site-title">DongKui's Note</span>
-      <span class="logo-line-after"><i></i></span>
-    </a>
+      <ul class="navbar-nav user-nav float-right desktop-only">
+        <li class="user-nav-notification">
+          <a><span class="user-nav-unread"></span><i class="fa fa-bell"></i></a>
+        </li>
+        <li>
+          <a><i class="fa fa-plus"></i> <i class="fa fa-caret-down"></i></a>
+        </li>
+        <li class="user-nav-logo">
+          <a><img src="/images/avatar.jpg"> <i class="fa fa-caret-down"></i></i></a>
+        </li>
+      </ul>
+    </div>
   </div>
-  <p class="site-subtitle">仰望星空，脚踏实地！</p>
-</div>
-
-<div class="site-nav-toggle">
-  <button>
-    <span class="btn-bar"></span>
-    <span class="btn-bar"></span>
-    <span class="btn-bar"></span>
-  </button>
-</div>
-
-<nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            Home
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-categories">
-          <a href="/categories" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            Categories
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            Archives
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            Tags
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-about">
-          <a href="/about" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
-            
-            About
-          </a>
-        </li>
-      
-
-      
-    </ul>
-  
-
-  
 </nav>
 
- </div>
-    </header>
-
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
-
-  <div id="posts" class="posts-expand">
-    
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                Resource Pool
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2017-10-27T23:35:25+08:00" content="2017-10-27">
-              2017-10-27
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/resource/" itemprop="url" rel="index">
-                    <span itemprop="name">resource</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
+<div class="main-container">
+  <header class="header-wrapper desktop-only">
+  <div class="container header-site-detail">
+    <ul class="header-toolbar">
+      <li class="clearfix">
+        <a href="/archives" class="header-toolbar-left"><i
+                  class="fa fa-file-text"></i> Posts </a>
+        <a href="/archives"
+           class="header-toolbar-right"> 8 </a>
+      </li>
+      <li>
+        <a href="/tags" class="header-toolbar-left"><i
+                  class="fa fa-tags"></i> Tags </a>
+        <a href="/tags"
+           class="header-toolbar-right"> 12 </a>
+      </li>
+      <li>
+        <a href="/categories" class="header-toolbar-left"><i
+                  class="fa fa-folder-open"></i> Categories </a>
+        <a href="/categories"
+           class="header-toolbar-right"> 7 </a>
+      </li>
+    </ul>
+    <h2 class="header-title">
+      <i class="fa fa-book text-muted"></i>
+      <a href="/">DongKui&#39;s Note</a>
       
       
+    </h2>
+  </div>
 
-      
-        <p>My resource pool</p>
+  <div class="container">
+    <div class="header-tab-wrapper clearfix">
+      <span class="header-tab header-tab-selected"><i class="fa fa-thumbs-o-up"></i> Like</span>
+      <span class="header-tab"><i class="fa fa-share-alt"></i> Share</span>
+      <span class="header-tab"><i class="fa fa-comments-o"></i> Discussion</span>
+      <span class="header-tab"><i class="fa fa-bookmark-o"></i> Bookmark </span>
+      <span class="header-tab"><i class="fa fa-smile-o"></i> Smile <i class="fa fa-caret-down"></i></span>
+    </div>
+  </div>
+</header>
+
+
+<div class="post-container container">
+  <h3>
+    <i class="fa fa-user-o"></i>
+    DongKui
+
+    <span class="post-date float-right" title="{{moment(1509118525000).format('MMM DD, YYYY, h:mm:ss A')}}">
+      <i class="fa fa-pencil-square-o"></i>
+      {{moment(1509118525000).fromNow()}}
+    </span>
+  </h3>
+
+  <article class="post-content">
+    <h1>Resource Pool</h1>
+    <p>Here is my resource pool, which including some wonderful site and blog link.</p>
 <a id="more"></a>
 <h1 id="As-a-Coder"><a href="#As-a-Coder" class="headerlink" title="As a Coder"></a>As a Coder</h1><h2 id="A-Programmer-Prepares"><a href="#A-Programmer-Prepares" class="headerlink" title="A Programmer Prepares"></a><a href="https://leohxj.gitbooks.io/a-programmer-prepares/" target="_blank" rel="external"><em>A Programmer Prepares</em></a></h2><p>A wonderful huge book for a coder who want to go higher.</p>
 <p>It’s a complete collection of useful tips for the coder.</p>
@@ -304,15 +149,16 @@
 <li><p><a href="http://legendtkl.com/" target="_blank" rel="external">Legendtkl</a>: blogs of Tao Kelu(taokelu@gmail.com)</p>
 </li>
 </ul>
-<h2 id="golang"><a href="#golang" class="headerlink" title="golang"></a>golang</h2><ul>
+<h2 id="golang-helpful-blog-link"><a href="#golang-helpful-blog-link" class="headerlink" title="golang(helpful blog link)"></a>golang(helpful blog link)</h2><ul>
 <li><strong><a href="https://divan.github.io" target="_blank" rel="external">divan’s blog</a></strong> : an amazing blog</li>
 <li><p><a href="https://appliedgo.net" target="_blank" rel="external">Applied Go: Go beyond the Go tutorials</a></p>
 </li>
 <li><p><a href="http://tonybai.com/articles" target="_blank" rel="external">Tony Bai</a> : golang, docker</p>
 </li>
 <li><a href="http://zuozuohao.github.io/" target="_blank" rel="external">Hao</a></li>
+<li><a href="http://michaelyou.github.io/" target="_blank" rel="external">Youmai の Blog</a>: network, linux, go, python, algorithm</li>
 </ul>
-<h2 id="else"><a href="#else" class="headerlink" title="else"></a>else</h2><hr>
+<hr>
 <h1 id="Reading"><a href="#Reading" class="headerlink" title="Reading"></a>Reading</h1><ul>
 <li><p><a href="http://www.tuicool.com" target="_blank" rel="external">推酷</a></p>
 </li>
@@ -360,322 +206,38 @@
 <li><a href="http://www.allitebooks.com" target="_blank" rel="external">allitebooks</a>: you can download almost all IT ebooks here</li>
 </ul>
 
-      
-    </div>
-
-    <div>
-      
-        
-
-      
-    </div>
-
-    <div>
-      
-        
-
-      
-    </div>
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/resource/" rel="tag">#resource</a>
-          
-            <a href="/tags/link/" rel="tag">#link</a>
-          
-        </div>
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2017/09/21/go_tool_present/" rel="next" title="Go tool: present">
-                <i class="fa fa-chevron-left"></i> Go tool: present
-              </a>
-            
-          </div>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/12/12/go_http_server/" rel="prev" title="Go package: HTTP 服务器实现">
-                Go package: HTTP 服务器实现 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
   </article>
+</div>
 
 
-
-    <div class="post-spread">
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-  <div class="comments" id="comments">
     
-  </div>
 
 
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            Overview
-          </li>
-        </ul>
-      
-
-      <section class="site-overview sidebar-panel ">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="/images/avatar.jpg"
-               alt="DongKui" />
-          <p class="site-author-name" itemprop="name">DongKui</p>
-          <p class="site-description motion-element" itemprop="description">散卷凉盏伴携程，一蓑烟雨任平生</p>
-        </div>
-        <nav class="site-state motion-element">
-          <div class="site-state-item site-state-posts">
-            <a href="/archives">
-              <span class="site-state-item-count">8</span>
-              <span class="site-state-item-name">posts</span>
-            </a>
-          </div>
-
-          
-            <div class="site-state-item site-state-categories">
-              <a href="/categories">
-                <span class="site-state-item-count">7</span>
-                <span class="site-state-item-name">categories</span>
-              </a>
-            </div>
-          
-
-          
-            <div class="site-state-item site-state-tags">
-              <a href="/tags">
-                <span class="site-state-item-count">12</span>
-                <span class="site-state-item-name">tags</span>
-              </a>
-            </div>
-          
-
-        </nav>
-
-        
-
-        <div class="links-of-author motion-element">
-          
-            
-              <span class="links-of-author-item">
-                <a href="https://github.com/dongkui0712" target="_blank" title="GitHub">
-                  
-                    <i class="fa fa-fw fa-github"></i>
-                  
-                  GitHub
-                </a>
-              </span>
-            
-              <span class="links-of-author-item">
-                <a href="https://twitter.com/dongkui0712" target="_blank" title="Twitter">
-                  
-                    <i class="fa fa-fw fa-twitter"></i>
-                  
-                  Twitter
-                </a>
-              </span>
-            
-              <span class="links-of-author-item">
-                <a href="http://weibo.com/u/5535040657" target="_blank" title="Weibo">
-                  
-                    <i class="fa fa-fw fa-weibo"></i>
-                  
-                  Weibo
-                </a>
-              </span>
-            
-          
-        </div>
-
-	
-
-        
-        
-
-        
-        
-
-      </section>
-
-      
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-            
-              
-            
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#As-a-Coder"><span class="nav-number">1.</span> <span class="nav-text">As a Coder</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#A-Programmer-Prepares"><span class="nav-number">1.1.</span> <span class="nav-text">A Programmer Prepares</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Personal-Site"><span class="nav-number">2.</span> <span class="nav-text">Personal Site</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#golang"><span class="nav-number">2.1.</span> <span class="nav-text">golang</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#else"><span class="nav-number">2.2.</span> <span class="nav-text">else</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Reading"><span class="nav-number">3.</span> <span class="nav-text">Reading</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Study-on-Line"><span class="nav-number">4.</span> <span class="nav-text">Study on Line</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#软件开发类"><span class="nav-number">4.1.</span> <span class="nav-text">软件开发类</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Forums"><span class="nav-number">5.</span> <span class="nav-text">Forums</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#docker"><span class="nav-number">5.1.</span> <span class="nav-text">docker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#scrum"><span class="nav-number">5.2.</span> <span class="nav-text">scrum</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#News-Sites"><span class="nav-number">6.</span> <span class="nav-text">News Sites</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Resource-Sites"><span class="nav-number">7.</span> <span class="nav-text">Resource Sites</span></a></li></ol></div>
-            
-          </div>
-        </section>
-      
-
-    </div>
-  </aside>
 
 
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright" >
-  
-  &copy;  2016 - 
-  <span itemprop="copyrightYear">2017</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">DongKui</span>
 </div>
 
-<div class="powered-by">
-  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
-</div>
-
-<div class="theme-info">
-  Theme -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Mist
-  </a>
-</div>
-
-        
-
-        
-      </div>
-    </footer>
-
-    <div class="back-to-top">
-      <i class="fa fa-arrow-up"></i>
+<div class="footer-wrapper container">
+  <footer class="footer clearfix">
+    <a href="http://dongkui.site" class="footer-logo">
+      <i class="fa fa-github"></i>
+    </a>
+    <ul class="footer-social-link">
+      <li>© 2016 DongKui</li>
+      <li><a href="http://dongkui.site">Home</a></li>
+      
+    </ul>
+    <div class="footer-theme-info">
+      Theme <a href="//github.com/sabrinaluo/hexo-theme-replica">Replica</a>
+      by <a href="//github.com/sabrinaluo">Hiitea</a> ❤ Powered by Hexo
     </div>
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
+  </footer>
+</div>
 
 
 
 
-
-
-
-
-
-  
-
-
-
-  
-  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-
-  
-  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-
-  
-  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
-
-
-
-  
-  
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
-
-
-
-  
-
-
-
-  
-
-
-
-
-  
-  
-
-  
-
-  
-
-  
+<script src="/js/main.js"></script>
 
 </body>
 </html>
