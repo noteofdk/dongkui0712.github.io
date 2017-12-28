@@ -1,143 +1,171 @@
-<!DOCTYPE html>
-<html lang="en">
-
-
+<!DOCTYPE HTML>
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>
-    Docker compose note (ing) | 在路上
-  </title>
-  <meta name="description" content="散卷凉盏伴携程，一蓑烟雨任平生">
-  
-  <meta name="keywords" content="
-  compose
-  ">
-  
-  <meta name="author" content="DongKui">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://dongkui.site">
+    <!--SEO-->
 
-  <meta http-equiv="Cache-Control" content="no-transform"/>
-  <meta http-equiv="Cache-Control" content="no-siteapp">
+<meta name="description" content="散卷凉盏伴携程，一蓑烟雨任平生"/>
 
-  <link rel="icon" type="image/x-icon" href="undefined">
-  <link rel="stylesheet" href="/css/main.css">
-  <link rel="stylesheet"
-        href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  
 
-  
 
-  <script src="//cdnjs.cloudflare.com/ajax/libs/vue/1.0.25-csp/vue.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+
+<title>Docker compose note (ing) | 在路上</title>
+
+
+
+    <link rel="icon" href="/images/avatar.jpg">
+
+    
+
+
+
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css?rev=9.12.0">
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css?rev=3.3.4">
+<link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+    <div class="hide">
+    	<script src="https://s4.cnzz.com/z_stat.php?id=1263868967&web_id=1263868967" language="JavaScript"></script>
+    </div>
+
+
+
+
+
+
+    
 </head>
 
-<body id="replica-app">
 
-<nav class="navbar-wrapper">
-  <div class="navbar">
-    <div class="container clearfix">
-      <a href="/" class="navbar-logo"><i class="fa fa-github"></i></a>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
 
-      <div class="navbar-search float-left desktop-only">
-        <div class="navbar-search-form">
-          <label for="gsc-i-id1">This website</label>
-          <div id="google-search">
-            <gcse:search></gcse:search>
-          </div>
-        </div>
-      </div>
-
-      <ul class="navbar-nav float-left">
-        
-        <li><a href="/archives">Archives</a></li>
-        
-        
-        <li><a href="/categories">Categories</a></li>
-        
-        
-        <li><a href="/tags">Tags</a></li>
-        
-        
-        <li><a href="/atom.xml" target="_blank">RSS</a></li>
-        
-      </ul>
-
-      <ul class="navbar-nav user-nav float-right desktop-only">
-        <li class="user-nav-notification">
-          <a><span class="user-nav-unread"></span><i class="fa fa-bell"></i></a>
-        </li>
-        <li>
-          <a><i class="fa fa-plus"></i> <i class="fa fa-caret-down"></i></a>
-        </li>
-        <li class="user-nav-logo">
-          <a><img src="/images/avatar.jpg"> <i class="fa fa-caret-down"></i></i></a>
-        </li>
-      </ul>
+<body>
+    <header class="main-header"  style="background-image:url(http://7xpw2b.com1.z0.glb.clouddn.com/hexo-sinppet/img/banner2.jpg)"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title="">
+            <img src="/img/avatar.jpg" alt="logo头像">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                <h2> 身和心，要有一个在路上 </h2>
+             
+    	</div>
     </div>
-  </div>
-</nav>
-
-<div class="main-container">
-  <header class="header-wrapper desktop-only">
-  <div class="container header-site-detail">
-    <ul class="header-toolbar">
-      <li class="clearfix">
-        <a href="/archives" class="header-toolbar-left"><i
-                  class="fa fa-file-text"></i> Posts </a>
-        <a href="/archives"
-           class="header-toolbar-right"> 8 </a>
-      </li>
-      <li>
-        <a href="/tags" class="header-toolbar-left"><i
-                  class="fa fa-tags"></i> Tags </a>
-        <a href="/tags"
-           class="header-toolbar-right"> 12 </a>
-      </li>
-      <li>
-        <a href="/categories" class="header-toolbar-left"><i
-                  class="fa fa-folder-open"></i> Categories </a>
-        <a href="/categories"
-           class="header-toolbar-right"> 7 </a>
-      </li>
-    </ul>
-    <h2 class="header-title">
-      <i class="fa fa-book text-muted"></i>
-      <a href="/">在路上</a>
-      
-      
-    </h2>
-  </div>
-
-  <div class="container">
-    <div class="header-tab-wrapper clearfix">
-      <span class="header-tab header-tab-selected"><i class="fa fa-thumbs-o-up"></i> Like</span>
-      <span class="header-tab"><i class="fa fa-share-alt"></i> Share</span>
-      <span class="header-tab"><i class="fa fa-comments-o"></i> Discussion</span>
-      <span class="header-tab"><i class="fa fa-bookmark-o"></i> Bookmark </span>
-      <span class="header-tab"><i class="fa fa-smile-o"></i> Smile <i class="fa fa-caret-down"></i></span>
-    </div>
-  </div>
 </header>
-
-
-<div class="post-container container">
-  <h3>
-    <i class="fa fa-user-o"></i>
-    DongKui
-
-    <span class="post-date float-right" title="{{moment(1469460925000).format('MMM DD, YYYY, h:mm:ss A')}}">
-      <i class="fa fa-pencil-square-o"></i>
-      {{moment(1469460925000).fromNow()}}
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only">Toggle navigation</span>
+                    <i class="fa fa-bars"></i>
+                    </span>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation"><a href="/categories/golang/"><i class="fa fa-fw /images/golang.jpg"></i>golang</a>
+                            </li>
+                        
+                            <li role="presentation"><a href="/categories/docker/"><i class="fa fa-fw /images/docker.png"></i>docker</a>
+                            </li>
+                        
+                            <li role="presentation"><a href="/categories/k8s/"><i class="fa fa-fw /images/k8s.png"></i>k8s</a>
+                            </li>
+                        
+                            <li role="presentation"><a href="/categories/linux/"><i class="fa fa-fw /images/linux.jpg"></i>linux</a>
+                            </li>
+                        
+                            <li role="presentation"><a href="/categories/resource/"><i class="fa fa-fw "></i>resource</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="Docker compose note (ing)">
+            
+            Docker compose note (ing)
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <span>docker</span>
     </span>
-  </h3>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            doker
+            
+        </span>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">2016/07/25</span>
+    </span>
+</div>
 
-  <article class="post-content">
-    <h1>Docker compose note (ing)</h1>
-    <p>Docker Compose 是定义、构建多容器的 docker 应用的工具。<br>Compose 通过 compose 文件配置应用的服务。之后，用一条指令就可以从配置创建、启动所有服务。 </p>
+            
+            
+            <p class="fa fa-exclamation-triangle warning">
+                本文于<strong>520</strong>天之前发表，文中内容可能已经过时。
+            </p>
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <p>Docker Compose 是定义、构建多容器的 docker 应用的工具。<br>Compose 通过 compose 文件配置应用的服务。之后，用一条指令就可以从配置创建、启动所有服务。 </p>
 <a id="more"></a>
-<p>和 CI 工作流程搭配，Compose 在开发、测试、模拟环境下非常给力。更多内容参见 <a href="https://docs.docker.com/compose/overview/#common-use-cases" target="_blank" rel="external">Common Use Cases.</a>。</p>
+<p>和 CI 工作流程搭配，Compose 在开发、测试、模拟环境下非常给力。更多内容参见 <a href="https://docs.docker.com/compose/overview/#common-use-cases" target="_blank" rel="noopener">Common Use Cases.</a>。</p>
 <p>使用 Compose 基于一下三步：</p>
 <ul>
 <li><ol>
@@ -153,10 +181,10 @@
 </ol>
 </li>
 </ul>
-<p><a href="https://docs.docker.com/compose/overview/" target="_blank" rel="external">原文地址</a></p>
+<p><a href="https://docs.docker.com/compose/overview/" target="_blank" rel="noopener">原文地址</a></p>
 <p>docker-compose.yml 格式如下：</p>
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="attr">version:</span> <span class="string">'2'</span></div><div class="line"><span class="attr">services:</span></div><div class="line"><span class="attr">  web:</span></div><div class="line"><span class="attr">    build:</span> .</div><div class="line"><span class="attr">    ports:</span></div><div class="line"><span class="bullet">    -</span> <span class="string">"5000:5000"</span></div><div class="line"><span class="attr">    volumes:</span></div><div class="line"><span class="bullet">    -</span> .:/code</div><div class="line"><span class="attr">    - logvolume01:</span>/var/log</div><div class="line"><span class="attr">    links:</span></div><div class="line"><span class="bullet">    -</span> redis</div><div class="line"><span class="attr">  redis:</span></div><div class="line"><span class="attr">    image:</span> redis</div><div class="line"><span class="attr">volumes:</span></div><div class="line"><span class="attr">  logvolume01:</span> &#123;&#125;</div></pre></td></tr></table></figure>
-<p>Compose 文件详情参见：<a href="https://docs.docker.com/compose/compose-file/" target="_blank" rel="external">Compose file reference</a></p>
+<p>Compose 文件详情参见：<a href="https://docs.docker.com/compose/compose-file/" target="_blank" rel="noopener">Compose file reference</a></p>
 <p>Compose 有管理应用的整个生命周期的指令：</p>
 <ul>
 <li>Start, stop and rebuild services</li>
@@ -164,7 +192,7 @@
 <li>Stream the log output of running services</li>
 <li>Run a one-off command on a service</li>
 </ul>
-<h2 id="特性（Features）"><a href="#特性（Features）" class="headerlink" title="特性（Features）"></a><a href="https://docs.docker.com/compose/overview/#/features" target="_blank" rel="external">特性（Features）</a></h2><ul>
+<h2 id="特性（Features）"><a href="#特性（Features）" class="headerlink" title="特性（Features）"></a><a href="https://docs.docker.com/compose/overview/#/features" target="_blank" rel="noopener">特性（Features）</a></h2><ul>
 <li>Multiple isolated environments on a single host</li>
 <li>Preserve volume data when containers are created</li>
 <li>Only recreate containers that have changed</li>
@@ -177,12 +205,12 @@
 <h3 id="自动化测试环境"><a href="#自动化测试环境" class="headerlink" title="自动化测试环境"></a>自动化测试环境</h3><p>任何持续部署或者集成过程的重要一部分是自动测试组件。自动化的端到端测试要求一个运行测试的环境。Compose 为测试组件提供一个方便地创建、销毁隔离地测试环境的途径。通过在 Compose file 中定义整个环境，可用几行指令就创建、销毁这些环境。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ docker-compose up -d</div><div class="line">$ ./run_tests</div><div class="line">$ docker-compose down</div></pre></td></tr></table></figure>
 <h3 id="单一主机的部署"><a href="#单一主机的部署" class="headerlink" title="单一主机的部署"></a>单一主机的部署</h3><p>传统地，将 Compose 定位为部署、测试工作流，但每个发布版都展现出更多的生产导向性。可以用 Compose 部署到一个远程 Docker 引擎。该 Docker 引擎可能是一个由 Docker Machine 预分配的单独实例，也可能是整个 Docker Swarm 集群。</p>
-<p>更多生产导向性特性，见 <a href="https://docs.docker.com/compose/production/" target="_blank" rel="external">compose in production</a></p>
+<p>更多生产导向性特性，见 <a href="https://docs.docker.com/compose/production/" target="_blank" rel="noopener">compose in production</a></p>
 <h1 id="安装-Compose"><a href="#安装-Compose" class="headerlink" title="安装 Compose)"></a><a href="(https://docs.docker.com/compose/install/">安装 Compose</a>)</h1><ol>
 <li>安装 Docker</li>
 <li>github 上 Compose repository 发行版页面</li>
 <li><p>安装命令：</p>
-<figure class="highlight plain"><figcaption><span>-L</span><a href="https://github.com/docker/compose/releases/download/1.7.1/docker-compose-`uname" target="_blank" rel="external">-s`-`uname -m` > /usr/local/bin/docker-compose```</a></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">4. 为二进制文件添加执行权限：</div><div class="line">``` $ chmod +x /usr/local/bin/docker-compose</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><figcaption><span>-L</span><a href="https://github.com/docker/compose/releases/download/1.7.1/docker-compose-`uname" target="_blank" rel="noopener">-s`-`uname -m` > /usr/local/bin/docker-compose```</a></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">4. 为二进制文件添加执行权限：</div><div class="line">``` $ chmod +x /usr/local/bin/docker-compose</div></pre></td></tr></table></figure>
 </li>
 <li><p>检测安装</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ docker-compose --version</div><div class="line">docker-compose version: 1.7.1</div></pre></td></tr></table></figure>
@@ -195,7 +223,7 @@
 </blockquote>
 <h3 id="Install-as-a-container"><a href="#Install-as-a-container" class="headerlink" title="Install as a container"></a>Install as a container</h3><p>Compose can also be run inside a container, from a small bash script wrapper. To install compose as a container run:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ curl -L https://github.com/docker/compose/releases/download/1.7.1/run.sh &gt; /usr/local/bin/docker-compose</div><div class="line">$ chmod +x /usr/local/bin/docker-compose</div></pre></td></tr></table></figure>
-<h2 id="Master-builds"><a href="#Master-builds" class="headerlink" title="Master builds"></a>Master builds</h2><p>If you’re interested in trying out a pre-release build you can download a binary from <a href="https://dl.bintray.com/docker-compose/master/" target="_blank" rel="external">https://dl.bintray.com/docker-compose/master/</a>. Pre-release builds allow you to try out new features before they are released, but may be less stable.</p>
+<h2 id="Master-builds"><a href="#Master-builds" class="headerlink" title="Master builds"></a>Master builds</h2><p>If you’re interested in trying out a pre-release build you can download a binary from <a href="https://dl.bintray.com/docker-compose/master/" target="_blank" rel="noopener">https://dl.bintray.com/docker-compose/master/</a>. Pre-release builds allow you to try out new features before they are released, but may be less stable.</p>
 <h2 id="Upgrading"><a href="#Upgrading" class="headerlink" title="Upgrading"></a>Upgrading</h2><p>If you’re upgrading from Compose 1.2 or earlier, you’ll need to remove or migrate your existing containers after upgrading Compose. This is because, as of version 1.3, Compose uses Docker labels to keep track of containers, and so they need to be recreated with labels added.</p>
 <p>If Compose detects containers that were created without labels, it will refuse to run so that you don’t end up with two sets of them. If you want to keep using your existing containers (for example, because they have data volumes you want to preserve) you can use compose 1.5.x to migrate them with the following command:</p>
 <pre><code>$ docker-compose migrate-to-labels
@@ -208,43 +236,188 @@
 </code></pre><blockquote>
 <p>Note: If you get a “Permission denied” error using either of the above methods, you probably do not have the proper permissions to remove docker-compose. To force the removal, prepend sudo to either of the above commands and run again.</p>
 </blockquote>
-<h1 id="Getting-Started"><a href="#Getting-Started" class="headerlink" title="Getting Started"></a><a href="https://docs.docker.com/compose/gettingstarted/" target="_blank" rel="external">Getting Started</a></h1><h1 id="Get-started-with-Django"><a href="#Get-started-with-Django" class="headerlink" title="Get started with Django"></a><a href="https://docs.docker.com/compose/django/" target="_blank" rel="external">Get started with Django</a></h1><h1 id="Get-started-with-Rails"><a href="#Get-started-with-Rails" class="headerlink" title="Get started with Rails"></a><a href="https://docs.docker.com/compose/rails/" target="_blank" rel="external">Get started with Rails</a></h1><h1 id="Get-started-with-WordPress"><a href="#Get-started-with-WordPress" class="headerlink" title="Get started with WordPress"></a><a href="https://docs.docker.com/compose/wordpress/" target="_blank" rel="external">Get started with WordPress</a></h1><h1 id="Frequently-asked-questions"><a href="#Frequently-asked-questions" class="headerlink" title="Frequently asked questions"></a><a href="https://docs.docker.com/compose/faq/" target="_blank" rel="external">Frequently asked questions</a></h1><h1 id="Command-line-reference"><a href="#Command-line-reference" class="headerlink" title="Command line reference"></a><a href="https://docs.docker.com/compose/reference/" target="_blank" rel="external">Command line reference</a></h1><h1 id="Compose-file-reference"><a href="#Compose-file-reference" class="headerlink" title="Compose file reference"></a><a href="https://docs.docker.com/compose/compose-file/" target="_blank" rel="external">Compose file reference</a></h1><h1 id="Environment-file"><a href="#Environment-file" class="headerlink" title="Environment file"></a><a href="https://docs.docker.com/compose/env-file/" target="_blank" rel="external">Environment file</a></h1>
-  </article>
-</div>
-
-
-    
-
-
-
-
-</div>
-
-<div class="footer-wrapper container">
-  <footer class="footer clearfix">
-    <a href="http://dongkui.site" class="footer-logo">
-      <i class="fa fa-github"></i>
-    </a>
-    <ul class="footer-social-link">
-      <li>© 2016 DongKui</li>
-      <li><a href="http://dongkui.site">Home</a></li>
-      
-      <li><a href="https://github.com/dongkui0712">Github</a></li>
-      
-      <li><a href="http://weibo.com/u/5535040657">Weibo</a></li>
-      
-    </ul>
-    <div class="footer-theme-info">
-      Theme <a href="//github.com/sabrinaluo/hexo-theme-replica">Replica</a>
-      by <a href="//github.com/sabrinaluo">Hiitea</a> ❤ Powered by Hexo
+<h1 id="Getting-Started"><a href="#Getting-Started" class="headerlink" title="Getting Started"></a><a href="https://docs.docker.com/compose/gettingstarted/" target="_blank" rel="noopener">Getting Started</a></h1><h1 id="Get-started-with-Django"><a href="#Get-started-with-Django" class="headerlink" title="Get started with Django"></a><a href="https://docs.docker.com/compose/django/" target="_blank" rel="noopener">Get started with Django</a></h1><h1 id="Get-started-with-Rails"><a href="#Get-started-with-Rails" class="headerlink" title="Get started with Rails"></a><a href="https://docs.docker.com/compose/rails/" target="_blank" rel="noopener">Get started with Rails</a></h1><h1 id="Get-started-with-WordPress"><a href="#Get-started-with-WordPress" class="headerlink" title="Get started with WordPress"></a><a href="https://docs.docker.com/compose/wordpress/" target="_blank" rel="noopener">Get started with WordPress</a></h1><h1 id="Frequently-asked-questions"><a href="#Frequently-asked-questions" class="headerlink" title="Frequently asked questions"></a><a href="https://docs.docker.com/compose/faq/" target="_blank" rel="noopener">Frequently asked questions</a></h1><h1 id="Command-line-reference"><a href="#Command-line-reference" class="headerlink" title="Command line reference"></a><a href="https://docs.docker.com/compose/reference/" target="_blank" rel="noopener">Command line reference</a></h1><h1 id="Compose-file-reference"><a href="#Compose-file-reference" class="headerlink" title="Compose file reference"></a><a href="https://docs.docker.com/compose/compose-file/" target="_blank" rel="noopener">Compose file reference</a></h1><h1 id="Environment-file"><a href="#Environment-file" class="headerlink" title="Environment file"></a><a href="https://docs.docker.com/compose/env-file/" target="_blank" rel="noopener">Environment file</a></h1>
     </div>
-  </footer>
+
+    <div class="post-footer">   
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Snippet</a>
+            
+        </div>
+        <div>
+            
+        </div>  
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/2016/07/26/tools-hexo/" class="pre-post btn btn-default"><i class="fa fa-angle-left fa-fw"></i>上一篇</a>
+    
+    
+</div>
+
+
+    <div id="comments">
+        
+    <div id="uyan_frame"></div>
+    <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=1966422"></script>
+
+
+
+
+
+
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+    <aside class="col-md-4 sidebar">
+        
+        
+    <div class="widget">    
+        <h3 class="title">Search</h3>
+        <div id="search-form">
+            <div id="result-mask" class="hide"></div>
+            <div class="search-area">
+                
+                    <input id="search-key" type="search" autocomplete="off" placeholder="搜点什么呢?">
+                    <button type="button" class="search-form-submit" id="search-local">localSearch</button>
+                
+                
+            </div>
+            <div id="result-wrap" class="hide">
+                <div id="search-result"></div>
+            </div>
+            <div class="hide">
+                <template id="search-tpl">
+                    <div class="item">
+                        <a href="/{path}" title="{title}">
+                            <div class="title">{title}</div>
+                            <div class="content">{content}</div>
+                        </a>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </div>
+
+        
+        
+    <div class="widget">
+        <h3 class="title">Categories</h3>
+        <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/docker/"><i class="fa" aria-hidden="true">docker</i></a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/golang/"><i class="fa" aria-hidden="true">golang</i></a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/k8s/"><i class="fa" aria-hidden="true">k8s</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/"><i class="fa" aria-hidden="true">linux</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/resource/"><i class="fa" aria-hidden="true">resource</i></a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/util/"><i class="fa" aria-hidden="true">util</i></a><span class="category-list-count">1</span></li></ul>
+    </div>
+
+
+        
+        
+    <div class="widget">
+      <h3 class="title">Archives</h3>
+        <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/"><i class="fa" aria-hidden="true">December 2017</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/"><i class="fa" aria-hidden="true">October 2017</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/"><i class="fa" aria-hidden="true">September 2017</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/"><i class="fa" aria-hidden="true">July 2017</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/"><i class="fa" aria-hidden="true">October 2016</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/"><i class="fa" aria-hidden="true">July 2016</i></a><span class="archive-list-count">2</span></li></ul>
+    </div>
+
+
+        
+        
+  <div class="widget">
+    <h3 class="title">Tag Cloud</h3>
+    <div class="content tag-cloud">
+        <a href="/tags/books/" style="font-size: 10px;">books</a> <a href="/tags/compose/" style="font-size: 10px;">compose</a> <a href="/tags/docker/" style="font-size: 20px;">docker</a> <a href="/tags/doker/" style="font-size: 10px;">doker</a> <a href="/tags/golang/" style="font-size: 20px;">golang</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/k8s/" style="font-size: 10px;">k8s</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/network/" style="font-size: 10px;">network</a> <a href="/tags/site/" style="font-size: 10px;">site</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/tools/" style="font-size: 10px;">tools</a> <a href="/tags/translate/" style="font-size: 10px;">translate</a>
+    </div>
+  </div>
+
+
+        
+        
+    <div class="widget">
+        <h3 class="title">Friends</h3>
+        <div class="content friends-link">
+        
+            <a href="https://liwei.io" class="fa" target="_blank">李伟</a>
+        
+            <a href="http://blog.csdn.net/frankcheng5143" class="fa" target="_blank">高伟兄</a>
+        
+        </div>
+    </div>
+
+
+        
+        
+    <div class="widget">
+      <h3 class="title">Social</h3> 
+        <div class="content social">
+            
+	            <a href="//github.com/dongkui0712" rel="external nofollow" title="Github" target="_blank">
+			    	<i class="git fa fa-git"></i>
+			    </a>
+            
+	            <a href="mailto:dongkui0712@gmail.com" rel="external nofollow" title="邮箱" target="_blank">
+			    	<i class="envelope-o fa fa-envelope-o"></i>
+			    </a>
+            
+	            <a href="/" rel="external nofollow" title="微博" target="_blank">
+			    	<i class="weibo fa fa-weibo"></i>
+			    </a>
+            
+        </div>
+    </div>
+
+
+        
+        
+        
+    </aside>
+
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12"> 
+                <span>Copyright &copy; 2017
+                </span> | 
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> | 
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
 </div>
 
 
 
 
-<script src="/js/main.js"></script>
+	<script src="/js/search.js?rev=@@hash"></script>
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
 
 </body>
 </html>

@@ -1,0 +1,519 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://dongkui.site">
+    <!--SEO-->
+
+<meta name="description" content="散卷凉盏伴携程，一蓑烟雨任平生"/>
+
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+
+<title>linux_command | 在路上</title>
+
+
+
+    <link rel="icon" href="/images/avatar.jpg">
+
+    
+
+
+
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css?rev=9.12.0">
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css?rev=3.3.4">
+<link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+    <div class="hide">
+    	<script src="https://s4.cnzz.com/z_stat.php?id=1263868967&web_id=1263868967" language="JavaScript"></script>
+    </div>
+
+
+
+
+
+
+    
+</head>
+
+
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header"  style="background-image:url(http://7xpw2b.com1.z0.glb.clouddn.com/hexo-sinppet/img/banner2.jpg)"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title="">
+            <img src="/img/avatar.jpg" alt="logo头像">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                <h2> 身和心，要有一个在路上 </h2>
+             
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only">Toggle navigation</span>
+                    <i class="fa fa-bars"></i>
+                    </span>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation"><a href="/categories/golang/"><i class="fa fa-fw /images/golang.jpg"></i>golang</a>
+                            </li>
+                        
+                            <li role="presentation"><a href="/categories/docker/"><i class="fa fa-fw /images/docker.png"></i>docker</a>
+                            </li>
+                        
+                            <li role="presentation"><a href="/categories/k8s/"><i class="fa fa-fw /images/k8s.png"></i>k8s</a>
+                            </li>
+                        
+                            <li role="presentation"><a href="/categories/linux/"><i class="fa fa-fw /images/linux.jpg"></i>linux</a>
+                            </li>
+                        
+                            <li role="presentation"><a href="/categories/resource/"><i class="fa fa-fw "></i>resource</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="linux_command">
+            
+            linux_command
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <span>linux</span>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            linux
+            
+        </span>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">2017/12/28</span>
+    </span>
+</div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <p>资料：</p>
+<ul>
+<li><a href="http://www.cnblogs.com/peida/tag/linux%E5%91%BD%E4%BB%A4/" target="_blank" rel="noopener">Linux 命令</a></li>
+</ul>
+<h1 id="后台运行和关闭、查看后台任务"><a href="#后台运行和关闭、查看后台任务" class="headerlink" title="后台运行和关闭、查看后台任务"></a>后台运行和关闭、查看后台任务</h1><ol>
+<li><code>&amp;</code>:<br>加在一个命令的最后，可以把这个命令放到后台执行</li>
+<li><code>ctrl + z</code><br>可以将一个正在前台执行的命令放到后台，并且处于暂停状态。</li>
+<li><code>jobs</code><br>查看当前有多少在后台运行的命令;<br><code>jobs -l</code>选项可显示所有任务的PID，jobs的状态可以是running, stopped, Terminated。但是如果任务被终止了（kill），shell 从当前的shell环境已知的列表中删除任务的进程标识。</li>
+<li><code>fg</code><br>将后台中的命令调至前台继续运行。如果后台中有多个命令，可以用<code>fg %jobnumber</code>（是命令编号，不是进程号）将选中的命令调出。</li>
+<li><code>bg</code><br>将一个在后台暂停的命令，变成在后台继续执行。如果后台中有多个命令，可以用 <code>bg %jobnumber</code> 将选中的命令调出。</li>
+<li><code>kill</code></li>
+</ol>
+<ul>
+<li>法子1：通过<code>jobs</code>命令查看job号（假设为num），然后执行<code>kill %num</code></li>
+<li>法子2：通过<code>ps</code>命令查看job的进程号（PID，假设为pid），然后执行 <code>kill pid</code><br>前台进程的终止：<code>Ctrl+c</code></li>
+</ul>
+<ol>
+<li><code>nohup</code><br>如果让程序始终在后台执行，即使关闭当前的终端也执行（之前的&amp;做不到），这时候需要nohup。该命令可以在你退出帐户/关闭终端之后继续运行相应的进程。关闭中断后，在另一个终端 <code>jobs</code> 已经无法看到后台跑得程序了，此时利用 <code>ps</code>（进程查看命令）</li>
+</ol>
+<p><code>ps -aux | grep &quot;test.sh&quot;</code></p>
+<ul>
+<li>a:显示所有程序</li>
+<li>u:以用户为主的格式来显示</li>
+<li>x:显示所有程序，不以终端机来区分</li>
+</ul>
+<h1 id="查看磁盘"><a href="#查看磁盘" class="headerlink" title="查看磁盘"></a>查看磁盘</h1><h2 id="df-以磁盘分区为单位查看文件系统"><a href="#df-以磁盘分区为单位查看文件系统" class="headerlink" title="df 以磁盘分区为单位查看文件系统"></a><code>df</code> 以磁盘分区为单位查看文件系统</h2><p><code>df -hl</code><br>显示格式为：</p>
+<p>文件系统 容量 已用 可用 已用% 挂载点</p>
+<h1 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h1><h2 id="which"><a href="#which" class="headerlink" title="which"></a><code>which</code></h2><blockquote>
+<p>locate a command</p>
+</blockquote>
+<p>which  returns the pathnames of the files (or links) which would be executed in the current environment, had its arguments been given as commands in a strictly POSIX-conformant shell.  It does this by searching the PATH for executable files matching the names of the arguments.  It does not follow symbolic links.</p>
+<p>##<code>whereis [-bmsu]</code></p>
+<blockquote>
+<p>locate programs</p>
+</blockquote>
+<ul>
+<li><code>-l</code> 列出查找的目录</li>
+<li><code>-b</code> 只列出二进制格式的文档</li>
+<li><code>-m</code> 只找出说明文档 manual 路径下的文档</li>
+<li><code>-s</code> 只找出 source 来源档案</li>
+<li><code>-u</code> 搜寻不在上述三个项目当中的其他特殊文档</li>
+</ul>
+<p>The whereis utility checks the <strong>standard binary directories</strong> for the specified programs, printing out the paths of any it finds.</p>
+<h1 id="用户管理"><a href="#用户管理" class="headerlink" title="用户管理"></a>用户管理</h1><p>Linux下管理员强行踢出用户的命令使用方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pkill -kill -t pts/2</div></pre></td></tr></table></figure></p>
+<h2 id="用户-etc-passwd"><a href="#用户-etc-passwd" class="headerlink" title="用户 /etc/passwd"></a>用户 <code>/etc/passwd</code></h2><p><code>id</code>:   查看id</p>
+<p><code>users</code>:        查看当前系统中有哪些用户；<br><code>who</code>:          当前在线用户；<br><code>w</code>:            当前在线用户详细信息；<br><code>finger</code>:       查看用户详细信息；</p>
+<p><code>useradd</code>:  增加用户<br><code>usermod</code>:  修改用户</p>
+<p><code>su</code>:       切换用户</p>
+<p><code>passwd [LOGIN]</code> : 修改密码</p>
+<h3 id="用户默认-shell"><a href="#用户默认-shell" class="headerlink" title="用户默认 shell"></a>用户默认 shell</h3><ul>
+<li>查看 <code>echo $SHELL</code></li>
+<li><p>设置位置： <code>/etc/passwd</code></p>
+</li>
+<li><p>配置自动刷新 <code>.bashrc</code>: 通过 <code>.profile</code></p>
+</li>
+</ul>
+<h2 id="用户组：-etc-group"><a href="#用户组：-etc-group" class="headerlink" title="用户组： /etc/group"></a>用户组： <code>/etc/group</code></h2><p><code>groups</code>:   查看自己所属用户组<br><code>groupadd</code>:     增加用户组<br><code>groupdel</code></p>
+<h1 id="任务管理"><a href="#任务管理" class="headerlink" title="任务管理"></a>任务管理</h1><p><code>cron</code>:     周期性执行；</p>
+<p><code>at</code>:       特定实践执行一次；<br><code>atq</code>:      查询 at 任务列表；<br><code>atrm</code>:     删除任务队列中的任务；</p>
+<h1 id="系统"><a href="#系统" class="headerlink" title="系统"></a>系统</h1><h2 id="locale"><a href="#locale" class="headerlink" title="locale"></a>locale</h2><p>设定locale   让Linux能够输入中文<br>locale    软件运行时的语言环境</p>
+<h3 id="locale分类："><a href="#locale分类：" class="headerlink" title="locale分类："></a>locale分类：</h3><p>语言符号及其分类(LC_CTYPE)，数字 (LC_NUMERIC)，比较和排序习惯(LC_COLLATE)，时间显示格式(LC_TIME)，货币单位(LC_MONETARY)，信息主要是提示信息,错误信息, 状态信息, 标题, 标签, 按钮和菜单等(LC_MESSAGES)，姓名书写方式(LC_NAME)，地址书写方式(LC_ADDRESS)，电话号码书写方式 (LC_TELEPHONE)，度量衡表达方式(LC_MEASUREMENT)，默认纸张尺寸大小(LC_PAPER)和locale对自身包含信息的概述(LC_IDENTIFICATION)。<br>eg:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">$ locale</div><div class="line">LANG=en_US.UTF-8</div><div class="line">LC_CTYPE=&quot;en_US.UTF-8&quot;                    #用户所使用的语言符号及其分类</div><div class="line">LC_NUMERIC=&quot;en_US.UTF-8&quot;                #数字</div><div class="line">LC_TIME=&quot;en_US.UTF-8&quot;                      #时间显示格式</div><div class="line">LC_COLLATE=&quot;en_US.UTF-8&quot;                #比较和排序习惯</div><div class="line">LC_MONETARY=&quot;en_US.UTF-8&quot;             #LC_MONETARY</div><div class="line">LC_MESSAGES=&quot;en_US.UTF-8&quot;             #信息主要是提示信息,错误信息, 状态信息, 标题, 标签, 按钮和菜单等</div><div class="line">LC_PAPER=&quot;en_US.UTF-8&quot;                    #默认纸张尺寸大小</div><div class="line">LC_NAME=&quot;en_US.UTF-8&quot;                     #姓名书写方式</div><div class="line">LC_ADDRESS=&quot;en_US.UTF-8&quot;               #地址书写方式</div><div class="line">LC_TELEPHONE=&quot;en_US.UTF-8&quot;             #电话号码书写方式</div><div class="line">LC_MEASUREMENT=&quot;en_US.UTF-8&quot;        #度量衡表达方式</div><div class="line">LC_IDENTIFICATION=&quot;en_US.UTF-8&quot;      #对自身包含信息的概述</div><div class="line">LC_ALL=</div></pre></td></tr></table></figure></p>
+<p>locale定义文件放在/usr/share/i18n/locales</p>
+<p>字符集就是字符，尤其是非英语字符在系统内的编码方式，也就是通常所说的内码，所有的字符集都放在 /usr/share/i18n/charmaps，所有的字符集也都是用Unicode编号索引的。Unicode用统一的编号来索引目前已知的全部的符号。而字符集则是这些符号的编码方式，或者说是在网络传输，计算机内部通信的时候，对于不同字符的表达方式，Unicode是一个静态的概念，字符集是一个动态的概念，是每一个字符传递或传输的具体形式.</p>
+<p>Locale 是软件在运行时的语言环境, 它包括语言(Language), 地域 (Territory) 和字符集(Codeset)。一个locale的书写格式为: 语言[_地域[.字符集]].<br>生成的locale放在/usr/lib/locale/目录中</p>
+<p>自定义locale</p>
+<p>优先级的关系：<br>LC<em>ALL&gt;LC</em>*&gt;LANG<br>LC_ALL的值将覆盖所有其他的locale设定</p>
+<p>查看zh_CN使用的编码：<br>/usr/lib/locale/zh<em>CN/LC</em>* 说明了使用何种编码</p>
+<h2 id="配置自启动"><a href="#配置自启动" class="headerlink" title="配置自启动"></a>配置自启动</h2><h3 id="开机启动时自动运行程序"><a href="#开机启动时自动运行程序" class="headerlink" title="开机启动时自动运行程序"></a>开机启动时自动运行程序</h3><p>Linux加载后, 它将初始化硬件和设备驱动, 然后运行第一个进程init。init根据配置<br>   文件继续引导过程，启动其它进程。通常情况下，修改放置在</p>
+<pre><code>/etc/rc或
+/etc/rc.d 或
+/etc/rc?.d
+</code></pre><p>目录下的脚本文件，可以使init自动启动其它程序。例如：编辑</p>
+<pre><code>/etc/rc.d/rc.local
+</code></pre><p>文件(该文件通常是系统最后启动的脚本)，在文件最末加上一行“xinit”或“startx”，可以在开机启动后直接进入X－Window。</p>
+<h3 id="登录时自动运行程序"><a href="#登录时自动运行程序" class="headerlink" title="登录时自动运行程序"></a>登录时自动运行程序</h3><p>用户登录时，bash先自动执行系统管理员建立的全局登录script ：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/ect/profile</div></pre></td></tr></table></figure>
+<p>然后bash在用户起始目录下按顺序查找三个特殊文件中的一个：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">/.bash_profile、</div><div class="line">/.bash_login、</div><div class="line">/.profile，</div></pre></td></tr></table></figure></p>
+<p>   但只执行最先找到的一个。因此，只需根据实际需要在上述文件中加入命令就可以实<br>   现用户登录时自动运行某些程序（类似于DOS下的Autoexec.bat）。</p>
+<h1 id="文件系统"><a href="#文件系统" class="headerlink" title="文件系统"></a>文件系统</h1><h2 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h2><h3 id="touch"><a href="#touch" class="headerlink" title="touch"></a>touch</h3><p><code>touch [OPTION]... FILE...</code><br>Update the access and modification times of each FILE to the current time.</p>
+<h3 id="rm"><a href="#rm" class="headerlink" title="rm"></a>rm</h3><p><code>rm [OPTION]... FILE...</code><br>Remove (unlink) the FILE(s).</p>
+<h3 id="mv"><a href="#mv" class="headerlink" title="mv"></a>mv</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Usage: mv [OPTION]... [-T] SOURCE DEST</div><div class="line">  or:  mv [OPTION]... SOURCE... DIRECTORY</div><div class="line">  or:  mv [OPTION]... -t DIRECTORY SOURCE...</div></pre></td></tr></table></figure>
+<p>Rename SOURCE to DEST, or move SOURCE(s) to DIRECTORY.</p>
+<h3 id="cat"><a href="#cat" class="headerlink" title="cat"></a>cat</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Usage: cat [OPTION]... [FILE]...</div></pre></td></tr></table></figure>
+<p>Concatenate FILE(s), or standard input, to standard output.</p>
+<h3 id="head"><a href="#head" class="headerlink" title="head"></a>head</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">NAME</div><div class="line">     head -- display first lines of a file</div><div class="line"></div><div class="line">SYNOPSIS</div><div class="line">     head [-n count | -c bytes] [file ...]</div><div class="line"></div><div class="line">DESCRIPTION</div><div class="line">     This filter displays the first count lines or bytes of each of the specified files, or of the standard input if no files are specified.</div><div class="line">     If count is omitted it defaults to 10.</div><div class="line"></div><div class="line">     If more than a single file is specified, each file is preceded by a header consisting of the string ``==&gt; XXX &lt;==&apos;&apos; where ``XXX&apos;&apos; is the</div><div class="line">     name of the file.</div></pre></td></tr></table></figure>
+<h3 id="tail"><a href="#tail" class="headerlink" title="tail"></a>tail</h3><h3 id="dos2unix"><a href="#dos2unix" class="headerlink" title="dos2unix"></a>dos2unix</h3><h3 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h3><h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><h3 id="cd"><a href="#cd" class="headerlink" title="cd"></a>cd</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">usage: cd [-L|[-P [-e]] [-@]] [dir]</div></pre></td></tr></table></figure>
+<h3 id="mkdir"><a href="#mkdir" class="headerlink" title="mkdir"></a>mkdir</h3><h3 id="cp"><a href="#cp" class="headerlink" title="cp"></a>cp</h3><h2 id="权限"><a href="#权限" class="headerlink" title="权限"></a>权限</h2><h3 id="查看文件权限的命令："><a href="#查看文件权限的命令：" class="headerlink" title="查看文件权限的命令："></a>查看文件权限的命令：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ls -l xxx.xxx （xxx.xxx是文件名）</div></pre></td></tr></table></figure>
+<p>那么就会出现相类似的信息，主要都是这些：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">-rw-rw-r--</div></pre></td></tr></table></figure>
+<p>一共有10位数</p>
+<p>其中： 最前面那个 - 代表的是类型<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">中间那三个 rw- 代表的是所有者（user）</div><div class="line">然后那三个 rw- 代表的是组群（group）</div><div class="line">最后那三个 r-- 代表的是其他人（other）</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">r 表示文件可以被读（read）</div><div class="line">w 表示文件可以被写（write）</div><div class="line">x 表示文件可以被执行（如果它是程序的话）</div><div class="line">- 表示相应的权限还没有被授予</div></pre></td></tr></table></figure>
+<h3 id="修改文件权限"><a href="#修改文件权限" class="headerlink" title="修改文件权限:"></a>修改文件权限:</h3><p>在终端输入：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">chmod o+w xxx.xxx</div></pre></td></tr></table></figure></p>
+<p>表示给其他人授予写xxx.xxx这个文件的权限</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">chmod go-rw xxx.xxx</div></pre></td></tr></table></figure>
+<p>表示删除xxx.xxx中组群和其他人的读和写的权限</p>
+<p>其中：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">u 代表所有者（user）</div><div class="line">g 代表所有者所在的组群（group）</div><div class="line">o 代表其他人，但不是u和g （other）</div><div class="line">a 代表全部的人，也就是包括u，g和o</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">r 表示文件可以被读（read）</div><div class="line">w 表示文件可以被写（write）</div><div class="line">x 表示文件可以被执行（如果它是程序的话）</div></pre></td></tr></table></figure>
+<p>其中：rwx也可以用数字来代替<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">r ------------4</div><div class="line">w -----------2</div><div class="line">x ------------1</div><div class="line">- ------------0</div></pre></td></tr></table></figure></p>
+<p>行动：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">+ 表示添加权限</div><div class="line">- 表示删除权限</div><div class="line">= 表示使之成为唯一的权限</div></pre></td></tr></table></figure></p>
+<p>当大家都明白了上面的东西之后，那么我们常见的以下的一些权限就很容易都明白了：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">-rw------- (600) 只有所有者才有读和写的权限</div><div class="line">-rw-r--r-- (644) 只有所有者才有读和写的权限，组群和其他人只有读的权限</div><div class="line">-rwx------ (700) 只有所有者才有读，写，执行的权限</div><div class="line">-rwxr-xr-x (755) 只有所有者才有读，写，执行的权限，组群和其他人只有读和执行的权限</div><div class="line">-rwx--x--x (711) 只有所有者才有读，写，执行的权限，组群和其他人只有执行的权限</div><div class="line">-rw-rw-rw- (666) 每个人都有读写的权限</div><div class="line">-rwxrwxrwx (777) 每个人都有读写和执行的权限</div></pre></td></tr></table></figure></p>
+<h1 id="压缩"><a href="#压缩" class="headerlink" title="压缩"></a>压缩</h1><h2 id="tar"><a href="#tar" class="headerlink" title="tar"></a>tar</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">-A 新增压缩文件到已存在的压缩</div><div class="line"></div><div class="line">-B 设置区块大小</div><div class="line"></div><div class="line">-c 建立新的压缩文件</div><div class="line"></div><div class="line">-d 记录文件的差别</div><div class="line"></div><div class="line">-r 添加文件到已经压缩的文件</div><div class="line"></div><div class="line">-u 添加改变了和现有的文件到已经存在的压缩文件</div><div class="line"></div><div class="line">-x 从压缩的文件中提取文件</div><div class="line"></div><div class="line">-t 显示压缩文件的内容</div><div class="line"></div><div class="line">-z 支持gzip解压文件</div><div class="line"></div><div class="line">-j 支持bzip2解压文件</div><div class="line"></div><div class="line">-Z 支持compress解压文件</div><div class="line"></div><div class="line">-v 显示操作过程</div><div class="line"></div><div class="line">-l 文件系统边界设置</div><div class="line"></div><div class="line">-k 保留原有文件不覆盖</div><div class="line"></div><div class="line">-m 保留文件不被覆盖</div><div class="line"></div><div class="line">-W 确认压缩文件的正确性</div></pre></td></tr></table></figure>
+<p>例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">tar -cvf log.tar log2012.log       仅打包，不压缩！</div><div class="line"></div><div class="line">tar -zcvf log.tar.gz log2012.log   打包后，以 gzip 压缩</div><div class="line"></div><div class="line">tar -jcvf log.tar.bz2 log2012.log  打包后，以 bzip2 压缩</div><div class="line"></div><div class="line">在参数 f 之后的文件档名是自己取的，我们习惯上都用 .tar 来作为辨识。 如果加 z 参数，则以 .tar.gz 或 .tgz 来代表 gzip 压缩过的 tar包； 如果加 j 参数，则以 .tar.bz2 来作为tar包名。</div></pre></td></tr></table></figure>
+<p>将mifan压缩包解压:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tar zxvf mifan.tar.gz</div></pre></td></tr></table></figure></p>
+<p>将根目录下面的mifan压缩:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tar czvf mifan.tar.gz   /mifan/*</div></pre></td></tr></table></figure></p>
+<h1 id="文本"><a href="#文本" class="headerlink" title="文本"></a>文本</h1><h2 id="管道"><a href="#管道" class="headerlink" title="管道"></a>管道</h2><h2 id="grep-搜索文本"><a href="#grep-搜索文本" class="headerlink" title="grep 搜索文本"></a>grep 搜索文本</h2><h2 id="sort-排序"><a href="#sort-排序" class="headerlink" title="sort 排序"></a>sort 排序</h2><h2 id="uniq-删除相邻重复行"><a href="#uniq-删除相邻重复行" class="headerlink" title="uniq 删除相邻重复行"></a>uniq 删除相邻重复行</h2><h2 id="cut-截取文本"><a href="#cut-截取文本" class="headerlink" title="cut 截取文本"></a>cut 截取文本</h2><h2 id="tr-文本转换"><a href="#tr-文本转换" class="headerlink" title="tr 文本转换"></a>tr 文本转换</h2><h2 id="paste-文本合并"><a href="#paste-文本合并" class="headerlink" title="paste 文本合并"></a>paste 文本合并</h2><h2 id="split-分割大文件"><a href="#split-分割大文件" class="headerlink" title="split 分割大文件"></a>split 分割大文件</h2><h1 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h1><h2 id="网络接口类型"><a href="#网络接口类型" class="headerlink" title="网络接口类型"></a>网络接口类型</h2><ul>
+<li>lo：本地回环接口</li>
+<li>eth[0-9]：以太网接口</li>
+<li>pppx：点对点的连接</li>
+</ul>
+<h2 id="ifconfig-命令：配置网络接口"><a href="#ifconfig-命令：配置网络接口" class="headerlink" title="ifconfig 命令：配置网络接口"></a>ifconfig 命令：配置网络接口</h2><p>ifconfig打开或关闭网络接口，设置IP地址与子网掩码，以及其他选项和参数。<br>通常在启动时通过命令行从配置文件中读取参数来运行，但也可以手动运行以做修改。</p>
+<p>命令格式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ifconfig [-v] [-a] [-s] [interface]</div><div class="line">ifconfig [-v] interface [aftype] options | address ...</div></pre></td></tr></table></figure></p>
+<p>查看活动的网卡信息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ifconfig</div></pre></td></tr></table></figure></p>
+<ul>
+<li><p><code>ifconfig eth0 down</code> 类似于 <code>ifdown eth0</code><br>关闭 eth0 网卡</p>
+</li>
+<li><p><code>ifconfig eth0 up</code> 类似于 <code>ifup eth0</code></p>
+</li>
+</ul>
+<p>RedHat, CentOS 网络配置文件：<code>/etc/sysconfig/network-scripts/</code> 目录下， eth0 的配置文件为： <code>ifcfg-eth0</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">Usage:</div><div class="line">  ifconfig [-a] [-v] [-s] &lt;interface&gt; [[&lt;AF&gt;] &lt;address&gt;]</div><div class="line">  [add &lt;address&gt;[/&lt;prefixlen&gt;]]</div><div class="line">  [del &lt;address&gt;[/&lt;prefixlen&gt;]]</div><div class="line">  [[-]broadcast [&lt;address&gt;]]  [[-]pointopoint [&lt;address&gt;]]</div><div class="line">  [netmask &lt;address&gt;]  [dstaddr &lt;address&gt;]  [tunnel &lt;address&gt;]</div><div class="line">  [outfill &lt;NN&gt;] [keepalive &lt;NN&gt;]</div><div class="line">  [hw &lt;HW&gt; &lt;address&gt;]  [metric &lt;NN&gt;]  [mtu &lt;NN&gt;]</div><div class="line">  [[-]trailers]  [[-]arp]  [[-]allmulti]</div><div class="line">  [multicast]  [[-]promisc]</div><div class="line">  [mem_start &lt;NN&gt;]  [io_addr &lt;NN&gt;]  [irq &lt;NN&gt;]  [media &lt;type&gt;]</div><div class="line">  [txqueuelen &lt;NN&gt;]</div><div class="line">  [[-]dynamic]</div><div class="line">  [up|down] ...</div><div class="line"></div><div class="line">  &lt;HW&gt;=Hardware Type.</div><div class="line">  List of possible hardware types:</div><div class="line">    loop (Local Loopback) slip (Serial Line IP) cslip (VJ Serial Line IP)</div><div class="line">    slip6 (6-bit Serial Line IP) cslip6 (VJ 6-bit Serial Line IP) adaptive (Adaptive Serial Line IP)</div><div class="line">    ash (Ash) ether (Ethernet) ax25 (AMPR AX.25)</div><div class="line">    netrom (AMPR NET/ROM) rose (AMPR ROSE) tunnel (IPIP Tunnel)</div><div class="line">    ppp (Point-to-Point Protocol) hdlc ((Cisco)-HDLC) lapb (LAPB)</div><div class="line">    arcnet (ARCnet) dlci (Frame Relay DLCI) frad (Frame Relay Access Device)</div><div class="line">    sit (IPv6-in-IPv4) fddi (Fiber Distributed Data Interface) hippi (HIPPI)</div><div class="line">    irda (IrLAP) ec (Econet) x25 (generic X.25)</div><div class="line">    eui64 (Generic EUI-64)</div><div class="line">  &lt;AF&gt;=Address family. Default: inet</div><div class="line">  List of possible address families:</div><div class="line">    unix (UNIX Domain) inet (DARPA Internet) inet6 (IPv6)</div><div class="line">    ax25 (AMPR AX.25) netrom (AMPR NET/ROM) rose (AMPR ROSE)</div><div class="line">    ipx (Novell IPX) ddp (Appletalk DDP) ec (Econet)</div><div class="line">    ash (Ash) x25 (CCITT X.25)</div></pre></td></tr></table></figure>
+<h2 id="ip命令"><a href="#ip命令" class="headerlink" title="ip命令"></a>ip命令</h2><h3 id="ip-link：配置网络接口属性"><a href="#ip-link：配置网络接口属性" class="headerlink" title="ip link：配置网络接口属性"></a>ip link：配置网络接口属性</h3><ul>
+<li>ip link show：查看所有网络接口属性信息</li>
+<li>ip -s link show：查看所有统计信息</li>
+<li>ip link set ethX {up|down|arp {on|off}}:设置网络接口的工作属性</li>
+</ul>
+<h3 id="ip-addr：配置网络地址"><a href="#ip-addr：配置网络地址" class="headerlink" title="ip addr：配置网络地址"></a>ip addr：配置网络地址</h3><ul>
+<li>ip addr show：查看网络信息，看到的信息和ip link show差不多，都比较简要</li>
+<li>ip addr add IP dev ethX ：配置IP地址（此命令配置的网卡信息利用ifconfig查看不到，需要利用ip addr show查看）</li>
+<li>ip addr add IP dev ethx label ethX:X：配置子Ip并对其加别名</li>
+</ul>
+<h2 id="route-命令-指定静态路由"><a href="#route-命令-指定静态路由" class="headerlink" title="route 命令:指定静态路由"></a>route 命令:指定静态路由</h2><ul>
+<li><code>route</code>: 直接可以查看我们系统上的路由信息</li>
+<li><code>route -n</code>: 以数字的形式显示路由信息</li>
+</ul>
+<p>动态配置：</p>
+<ul>
+<li><code>route add default gw 192.168.159.2</code>: 添加默认网关</li>
+</ul>
+<p>配置文件</p>
+<ul>
+<li><code>/etc/sysconfig/network</code> 中添加 <code>GATEWAY=192.168.159.2</code></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">Usage: route [-nNvee] [-FC] [&lt;AF&gt;]           List kernel routing tables</div><div class="line">       route [-v] [-FC] &#123;add|del|flush&#125; ...  Modify routing table for AF.</div><div class="line"></div><div class="line">       route &#123;-h|--help&#125; [&lt;AF&gt;]              Detailed usage syntax for specified AF.</div><div class="line">       route &#123;-V|--version&#125;                  Display version/author and exit.</div><div class="line"></div><div class="line">        -v, --verbose            be verbose</div><div class="line">        -n, --numeric            don&apos;t resolve names</div><div class="line">        -e, --extend             display other/more information</div><div class="line">        -F, --fib                display Forwarding Information Base (default)</div><div class="line">        -C, --cache              display routing cache instead of FIB</div><div class="line"></div><div class="line">  &lt;AF&gt;=Use &apos;-A &lt;af&gt;&apos; or &apos;--&lt;af&gt;&apos;; default: inet</div><div class="line">  List of possible address families (which support routing):</div><div class="line">    inet (DARPA Internet) inet6 (IPv6) ax25 (AMPR AX.25)</div><div class="line">    netrom (AMPR NET/ROM) ipx (Novell IPX) ddp (Appletalk DDP)</div><div class="line">    x25 (CCITT X.25)</div></pre></td></tr></table></figure>
+<p>例子<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">route add -net 192.168.45.128/25 zulu-gw.atrust.net</div></pre></td></tr></table></figure></p>
+<p>该命令通过网关路由器zulu-gw.atrust.net添加一条到192.168.45.128/25网络的路由。通常，网关路由器是相邻主机或本地主机的一个接口（Linux要求在网关地址前加上gw选项名）。route命令必须能够将zulu-gw.atrust.net解析成IP地址。</p>
+<h3 id="添加路由"><a href="#添加路由" class="headerlink" title="添加路由"></a>添加路由</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">route  add -host：添加主机路由</div><div class="line">route  add -net：添加网络路由</div><div class="line">route  add -net  0.0.0.0：添加默认路由</div></pre></td></tr></table></figure>
+<p>格式：route add -net|host DEST gw NEXTHOP<br>例如，添加一条路由，让主机通过172.16.7.3访问192.168.0.0/24网段</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">route add –net 192.168.0.0/24 gw 172.16.7.3</div></pre></td></tr></table></figure>
+<h2 id="ping"><a href="#ping" class="headerlink" title="ping"></a>ping</h2><p>常用：</p>
+<ul>
+<li><code>-c</code>: 指定 ping 次数；</li>
+<li><code>-i</code>: 指定 ping 包发送间隔；</li>
+<li><code>-w</code>: 如果没有反应，则在指定超时时间后推出；</li>
+</ul>
+<h2 id="设置静态-ip"><a href="#设置静态-ip" class="headerlink" title="设置静态 ip"></a>设置静态 ip</h2><h3 id="修改网卡配置"><a href="#修改网卡配置" class="headerlink" title="修改网卡配置"></a>修改网卡配置</h3><p>文件：<code>/etc/network/interfaces</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">auto eth0</div><div class="line">iface eth0 inet static</div><div class="line">address 192.168.0.117</div><div class="line">gateway 192.168.0.1 #这个地址你要确认下 网关是不是这个地址</div><div class="line">netmask 255.255.255.0</div><div class="line">network 192.168.0.0</div><div class="line">broadcast 192.168.0.255</div></pre></td></tr></table></figure>
+<h3 id="修改-dns-解析"><a href="#修改-dns-解析" class="headerlink" title="修改 dns 解析"></a>修改 dns 解析</h3><p>因为以前是dhcp解析，所以会自动分配dns服务器地址</p>
+<p>而一旦设置为静态ip后就没有自动获取到的dns服务器了</p>
+<p>要自己设置一个<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo vim /etc/resolv.conf</div></pre></td></tr></table></figure></p>
+<p>写上一个公网的DNS<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nameserver 202.96.128.86</div></pre></td></tr></table></figure></p>
+<h3 id="重启网卡："><a href="#重启网卡：" class="headerlink" title="重启网卡："></a>重启网卡：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo /etc/init.d/network restart</div></pre></td></tr></table></figure>
+<h2 id="查看路由信息"><a href="#查看路由信息" class="headerlink" title="查看路由信息"></a>查看路由信息</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">route -n</div></pre></td></tr></table></figure>
+<h2 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h2><h3 id="etc-hosts-文件"><a href="#etc-hosts-文件" class="headerlink" title="/etc/hosts 文件"></a><code>/etc/hosts</code> 文件</h3><p>最初：纪录主机名与 IP 的对应关系</p>
+<p>目前：</p>
+<ul>
+<li>加快域名解析</li>
+<li>方便小型局域网使用内部设备</li>
+</ul>
+<h3 id="dig"><a href="#dig" class="headerlink" title="dig"></a><code>dig</code></h3><p>显示 dns 查询过程</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dig baidu.com</div></pre></td></tr></table></figure>
+<h3 id="dig-x-lt-ip-gt"><a href="#dig-x-lt-ip-gt" class="headerlink" title="dig -x &lt;ip&gt;"></a><code>dig -x &lt;ip&gt;</code></h3><p>从IP地址查询域名</p>
+<h3 id="host"><a href="#host" class="headerlink" title="host"></a>host</h3><ul>
+<li>返回当前请求域名的各种记录</li>
+<li>也可以用于逆向查询，即从IP地址查询域名</li>
+</ul>
+<h3 id="nslookup"><a href="#nslookup" class="headerlink" title="nslookup"></a>nslookup</h3><p>用于互动式地查询域名记录</p>
+<h3 id="whois"><a href="#whois" class="headerlink" title="whois"></a>whois</h3><p>查看域名的注册情况。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">whois github.com</div></pre></td></tr></table></figure>
+<h2 id="ss"><a href="#ss" class="headerlink" title="ss"></a>ss</h2><p>ss是Socket Statistics的缩写。顾名思义，ss命令可以用来获取socket统计信息，它可以显示和netstat类似的内容。但ss的优势在于它能够显示更多更详细的有关TCP和连接状态的信息，而且比netstat更快速更高效。</p>
+<p>它使用了 TCP协议栈中 tcp_diag（是一个用于分析统计的模块），能直接从获得第一手内核信息，这就使得 ss命令快捷高效。在没有 tcp_diag，ss也可以正常运行。</p>
+<h1 id="包"><a href="#包" class="headerlink" title="包"></a>包</h1><h2 id="apt-get"><a href="#apt-get" class="headerlink" title="apt-get"></a>apt-get</h2><h2 id="dpkg"><a href="#dpkg" class="headerlink" title="dpkg"></a>dpkg</h2><hr>
+<p><img src="leanote://file/getImage?fileId=58859d8bb88f442402000000" alt=""></p>
+<h1 id="curl"><a href="#curl" class="headerlink" title="curl"></a>curl</h1><p><a href="http://www.ruanyifeng.com/blog/2011/09/curl.html" target="_blank" rel="noopener">curl网站开发指南</a></p>
+<h1 id="wget"><a href="#wget" class="headerlink" title="wget"></a><a href="http://www.cnblogs.com/peida/archive/2013/03/18/2965369.html" target="_blank" rel="noopener">wget</a></h1><p>Linux系统中的wget是一个下载文件的工具。<br>wget支持HTTP，HTTPS和FTP协议，可以使用HTTP代理。<br>wget可以在用户退出系统的之后在后台执行。这意味这你可以登录系统，启动一个wget下载任务，然后退出系统，wget将在后台执行直到任务完成。</p>
+<p>wget 可以跟踪HTML页面上的链接依次下载来创建远程服务器的本地版本，完全重建原始站点的目录结构。这又常被称作”递归下载”。在递归下载的时候，wget 遵循Robot Exclusion标准(/robots.txt). wget可以在下载的同时，将链接转换成指向本地文件，以方便离线浏览。</p>
+
+    </div>
+
+    <div class="post-footer">   
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Snippet</a>
+            
+        </div>
+        <div>
+            
+        </div>  
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+    
+        <a href="/2017/12/12/go_http_server/" class="next-post btn btn-default">下一篇<i class="fa fa-angle-right fa-fw"></i></a>
+    
+</div>
+
+
+
+
+
+
+                </main>
+                
+    <aside class="col-md-4 sidebar">
+        
+        
+    <div class="widget">    
+        <h3 class="title">Search</h3>
+        <div id="search-form">
+            <div id="result-mask" class="hide"></div>
+            <div class="search-area">
+                
+                    <input id="search-key" type="search" autocomplete="off" placeholder="搜点什么呢?">
+                    <button type="button" class="search-form-submit" id="search-local">localSearch</button>
+                
+                
+            </div>
+            <div id="result-wrap" class="hide">
+                <div id="search-result"></div>
+            </div>
+            <div class="hide">
+                <template id="search-tpl">
+                    <div class="item">
+                        <a href="/{path}" title="{title}">
+                            <div class="title">{title}</div>
+                            <div class="content">{content}</div>
+                        </a>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </div>
+
+        
+        
+    <div class="widget">
+        <h3 class="title">Categories</h3>
+        <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/docker/"><i class="fa" aria-hidden="true">docker</i></a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/golang/"><i class="fa" aria-hidden="true">golang</i></a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/k8s/"><i class="fa" aria-hidden="true">k8s</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/"><i class="fa" aria-hidden="true">linux</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/resource/"><i class="fa" aria-hidden="true">resource</i></a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/util/"><i class="fa" aria-hidden="true">util</i></a><span class="category-list-count">1</span></li></ul>
+    </div>
+
+
+        
+        
+    <div class="widget">
+      <h3 class="title">Archives</h3>
+        <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/"><i class="fa" aria-hidden="true">December 2017</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/"><i class="fa" aria-hidden="true">October 2017</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/"><i class="fa" aria-hidden="true">September 2017</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/"><i class="fa" aria-hidden="true">July 2017</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/"><i class="fa" aria-hidden="true">October 2016</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/"><i class="fa" aria-hidden="true">July 2016</i></a><span class="archive-list-count">2</span></li></ul>
+    </div>
+
+
+        
+        
+  <div class="widget">
+    <h3 class="title">Tag Cloud</h3>
+    <div class="content tag-cloud">
+        <a href="/tags/books/" style="font-size: 10px;">books</a> <a href="/tags/compose/" style="font-size: 10px;">compose</a> <a href="/tags/docker/" style="font-size: 20px;">docker</a> <a href="/tags/doker/" style="font-size: 10px;">doker</a> <a href="/tags/golang/" style="font-size: 20px;">golang</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/k8s/" style="font-size: 10px;">k8s</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/network/" style="font-size: 10px;">network</a> <a href="/tags/site/" style="font-size: 10px;">site</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/tools/" style="font-size: 10px;">tools</a> <a href="/tags/translate/" style="font-size: 10px;">translate</a>
+    </div>
+  </div>
+
+
+        
+        
+    <div class="widget">
+        <h3 class="title">Friends</h3>
+        <div class="content friends-link">
+        
+            <a href="https://liwei.io" class="fa" target="_blank">李伟</a>
+        
+            <a href="http://blog.csdn.net/frankcheng5143" class="fa" target="_blank">高伟兄</a>
+        
+        </div>
+    </div>
+
+
+        
+        
+    <div class="widget">
+      <h3 class="title">Social</h3> 
+        <div class="content social">
+            
+	            <a href="//github.com/dongkui0712" rel="external nofollow" title="Github" target="_blank">
+			    	<i class="git fa fa-git"></i>
+			    </a>
+            
+	            <a href="mailto:dongkui0712@gmail.com" rel="external nofollow" title="邮箱" target="_blank">
+			    	<i class="envelope-o fa fa-envelope-o"></i>
+			    </a>
+            
+	            <a href="/" rel="external nofollow" title="微博" target="_blank">
+			    	<i class="weibo fa fa-weibo"></i>
+			    </a>
+            
+        </div>
+    </div>
+
+
+        
+        
+        
+    </aside>
+
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12"> 
+                <span>Copyright &copy; 2017
+                </span> | 
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> | 
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+	<script src="/js/search.js?rev=@@hash"></script>
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+
+</body>
+</html>

@@ -1,251 +1,422 @@
-<!DOCTYPE html>
-<html lang="en">
-
-
+<!DOCTYPE HTML>
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>
-    Resource Pool | 在路上
-  </title>
-  <meta name="description" content="散卷凉盏伴携程，一蓑烟雨任平生">
-  
-  <meta name="keywords" content="
-  resource,link
-  ">
-  
-  <meta name="author" content="DongKui">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://dongkui.site">
+    <!--SEO-->
 
-  <meta http-equiv="Cache-Control" content="no-transform"/>
-  <meta http-equiv="Cache-Control" content="no-siteapp">
-
-  <link rel="icon" type="image/x-icon" href="undefined">
-  <link rel="stylesheet" href="/css/main.css">
-  <link rel="stylesheet"
-        href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  
-
-  
-
-  <script src="//cdnjs.cloudflare.com/ajax/libs/vue/1.0.25-csp/vue.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
-</head>
-
-<body id="replica-app">
-
-<nav class="navbar-wrapper">
-  <div class="navbar">
-    <div class="container clearfix">
-      <a href="/" class="navbar-logo"><i class="fa fa-github"></i></a>
-
-      <div class="navbar-search float-left desktop-only">
-        <div class="navbar-search-form">
-          <label for="gsc-i-id1">This website</label>
-          <div id="google-search">
-            <gcse:search></gcse:search>
-          </div>
-        </div>
-      </div>
-
-      <ul class="navbar-nav float-left">
-        
-        <li><a href="/archives">Archives</a></li>
-        
-        
-        <li><a href="/categories">Categories</a></li>
-        
-        
-        <li><a href="/tags">Tags</a></li>
-        
-        
-        <li><a href="/atom.xml" target="_blank">RSS</a></li>
-        
-      </ul>
-
-      <ul class="navbar-nav user-nav float-right desktop-only">
-        <li class="user-nav-notification">
-          <a><span class="user-nav-unread"></span><i class="fa fa-bell"></i></a>
-        </li>
-        <li>
-          <a><i class="fa fa-plus"></i> <i class="fa fa-caret-down"></i></a>
-        </li>
-        <li class="user-nav-logo">
-          <a><img src="/images/avatar.jpg"> <i class="fa fa-caret-down"></i></i></a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
-
-<div class="main-container">
-  <header class="header-wrapper desktop-only">
-  <div class="container header-site-detail">
-    <ul class="header-toolbar">
-      <li class="clearfix">
-        <a href="/archives" class="header-toolbar-left"><i
-                  class="fa fa-file-text"></i> Posts </a>
-        <a href="/archives"
-           class="header-toolbar-right"> 8 </a>
-      </li>
-      <li>
-        <a href="/tags" class="header-toolbar-left"><i
-                  class="fa fa-tags"></i> Tags </a>
-        <a href="/tags"
-           class="header-toolbar-right"> 12 </a>
-      </li>
-      <li>
-        <a href="/categories" class="header-toolbar-left"><i
-                  class="fa fa-folder-open"></i> Categories </a>
-        <a href="/categories"
-           class="header-toolbar-right"> 7 </a>
-      </li>
-    </ul>
-    <h2 class="header-title">
-      <i class="fa fa-book text-muted"></i>
-      <a href="/">在路上</a>
-      
-      
-    </h2>
-  </div>
-
-  <div class="container">
-    <div class="header-tab-wrapper clearfix">
-      <span class="header-tab header-tab-selected"><i class="fa fa-thumbs-o-up"></i> Like</span>
-      <span class="header-tab"><i class="fa fa-share-alt"></i> Share</span>
-      <span class="header-tab"><i class="fa fa-comments-o"></i> Discussion</span>
-      <span class="header-tab"><i class="fa fa-bookmark-o"></i> Bookmark </span>
-      <span class="header-tab"><i class="fa fa-smile-o"></i> Smile <i class="fa fa-caret-down"></i></span>
-    </div>
-  </div>
-</header>
+<meta name="description" content="散卷凉盏伴携程，一蓑烟雨任平生"/>
 
 
-<div class="post-container container">
-  <h3>
-    <i class="fa fa-user-o"></i>
-    DongKui
 
-    <span class="post-date float-right" title="{{moment(1509118525000).format('MMM DD, YYYY, h:mm:ss A')}}">
-      <i class="fa fa-pencil-square-o"></i>
-      {{moment(1509118525000).fromNow()}}
-    </span>
-  </h3>
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
 
-  <article class="post-content">
-    <h1>Resource Pool</h1>
-    <p>Here is my resource pool, which including some wonderful site and blog link.</p>
-<a id="more"></a>
-<h1 id="As-a-Coder"><a href="#As-a-Coder" class="headerlink" title="As a Coder"></a>As a Coder</h1><h2 id="A-Programmer-Prepares"><a href="#A-Programmer-Prepares" class="headerlink" title="A Programmer Prepares"></a><a href="https://leohxj.gitbooks.io/a-programmer-prepares/" target="_blank" rel="external"><em>A Programmer Prepares</em></a></h2><p>A wonderful huge book for a coder who want to go higher.</p>
-<p>It’s a complete collection of useful tips for the coder.</p>
-<h1 id="Personal-Site"><a href="#Personal-Site" class="headerlink" title="Personal Site"></a>Personal Site</h1><ul>
-<li><a href="http://www.ruanyifeng.com/blog" target="_blank" rel="external">阮一峰的网络日志</a></li>
-<li><a href="http://www.chengweiyang.cn" target="_blank" rel="external">Chengwei’s Words</a></li>
-<li><p><a href="http://www.cnblogs.com/yuxingfirst" target="_blank" rel="external">语行</a></p>
-</li>
-<li><p><a href="http://blog.jimmylv.info" target="_blank" rel="external">吕立青的博客</a></p>
-</li>
-<li><p><a href="http://legendtkl.com/" target="_blank" rel="external">Legendtkl</a>: blogs of Tao Kelu(taokelu@gmail.com)</p>
-</li>
-<li><p><a href="http://michaelyou.github.io/" target="_blank" rel="external">Youmai のBlog</a>: network, linux, go, python, algorithm</p>
-</li>
-</ul>
-<h2 id="golang-helpful-blog-link"><a href="#golang-helpful-blog-link" class="headerlink" title="golang(helpful blog link)"></a>golang(helpful blog link)</h2><ul>
-<li><strong><a href="https://divan.github.io" target="_blank" rel="external">divan’s blog</a></strong> : an amazing blog</li>
-<li><p><a href="https://appliedgo.net" target="_blank" rel="external">Applied Go: Go beyond the Go tutorials</a></p>
-</li>
-<li><p><a href="http://tonybai.com/articles" target="_blank" rel="external">Tony Bai</a> : golang, docker</p>
-</li>
-<li><a href="http://zuozuohao.github.io/" target="_blank" rel="external">Hao</a></li>
-</ul>
-<h2 id="web"><a href="#web" class="headerlink" title="web"></a>web</h2><ul>
-<li><a href="http://sabrinaluo.com/tech/" target="_blank" rel="external">小白妹妹写代码</a>: a blog of a cute girl which focus on web</li>
-</ul>
-<hr>
-<h1 id="Reading"><a href="#Reading" class="headerlink" title="Reading"></a>Reading</h1><ul>
-<li><p><a href="http://www.tuicool.com" target="_blank" rel="external">推酷</a></p>
-</li>
-<li><p><a href="https://medium.com" target="_blank" rel="external">medium</a></p>
-</li>
-<li><a href="http://www.yilan.io" target="_blank" rel="external">一览</a></li>
-</ul>
-<hr>
-<h1 id="Study-on-Line"><a href="#Study-on-Line" class="headerlink" title="Study on Line"></a>Study on Line</h1><ul>
-<li><a href="https://tutsplus.com" target="_blank" rel="external">tuts+</a>: 资源多，质量好，不只视频还有文字教程。</li>
-<li><a href="https://www.lynda.com" target="_blank" rel="external">Lynda</a>: 同tuts+，有条理。</li>
-<li><p><a href="https://www.coursehero.com" target="_blank" rel="external">Course Hero</a></p>
-</li>
-<li><p><a href="http://www.imooc.com" target="_blank" rel="external">慕课网</a></p>
-</li>
-<li><a href="http://www.mooc.cn" target="_blank" rel="external">慕课中国</a></li>
-<li><a href="http://study.163.com" target="_blank" rel="external">网易云课堂</a></li>
-<li><a href="http://open.163.com" target="_blank" rel="external">网易公开课</a></li>
-</ul>
-<h2 id="软件开发类"><a href="#软件开发类" class="headerlink" title="软件开发类"></a>软件开发类</h2><ul>
-<li><a href="https://edu.aliyun.com/developer" target="_blank" rel="external">阿里云大学</a></li>
-</ul>
-<hr>
-<h1 id="Forums"><a href="#Forums" class="headerlink" title="Forums"></a>Forums</h1><ul>
-<li><a href="http://blog.dataman-inc.com" target="_blank" rel="external">数人云博客</a></li>
-<li><a href="https://yq.aliyun.com" target="_blank" rel="external">云栖社区</a></li>
-<li><a href="http://coolshell.cn" target="_blank" rel="external">酷壳</a></li>
-<li><a href="https://segmentfault.com" target="_blank" rel="external">segmentfault</a></li>
-</ul>
-<h2 id="docker"><a href="#docker" class="headerlink" title="docker"></a>docker</h2><ul>
-<li><a href="https://forums.docker.com" target="_blank" rel="external">forums.docker.com</a></li>
-<li><a href="https://blog.docker.com" target="_blank" rel="external">blog.docker.com</a></li>
-<li><a href="http://dockone.io/" target="_blank" rel="external">dockone</a></li>
-</ul>
-<h2 id="scrum"><a href="#scrum" class="headerlink" title="scrum"></a>scrum</h2><ul>
-<li><a href="http://www.chinascrum.org/" target="_blank" rel="external">scrum中文社区</a></li>
-</ul>
-<hr>
-<h1 id="News-Sites"><a href="#News-Sites" class="headerlink" title="News Sites"></a>News Sites</h1><ul>
-<li><a href="http://www.williamlong.info" target="_blank" rel="external">月光博客</a></li>
-<li><a href="http://www.chinaaet.com" target="_blank" rel="external">电子技术应用</a></li>
-</ul>
-<hr>
-<h1 id="Resource-Sites"><a href="#Resource-Sites" class="headerlink" title="Resource Sites"></a>Resource Sites</h1><ul>
-<li><a href="http://www.allitebooks.com" target="_blank" rel="external">allitebooks</a>: you can download almost all IT ebooks here</li>
-</ul>
 
-  </article>
-</div>
+<title>Resource Pool | 在路上</title>
 
+
+
+    <link rel="icon" href="/images/avatar.jpg">
 
     
 
 
 
 
-</div>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css?rev=9.12.0">
 
-<div class="footer-wrapper container">
-  <footer class="footer clearfix">
-    <a href="http://dongkui.site" class="footer-logo">
-      <i class="fa fa-github"></i>
-    </a>
-    <ul class="footer-social-link">
-      <li>© 2016 DongKui</li>
-      <li><a href="http://dongkui.site">Home</a></li>
-      
-      <li><a href="https://github.com/dongkui0712">Github</a></li>
-      
-      <li><a href="http://weibo.com/u/5535040657">Weibo</a></li>
-      
-    </ul>
-    <div class="footer-theme-info">
-      Theme <a href="//github.com/sabrinaluo/hexo-theme-replica">Replica</a>
-      by <a href="//github.com/sabrinaluo">Hiitea</a> ❤ Powered by Hexo
+
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css?rev=3.3.4">
+<link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+    <div class="hide">
+    	<script src="https://s4.cnzz.com/z_stat.php?id=1263868967&web_id=1263868967" language="JavaScript"></script>
     </div>
-  </footer>
+
+
+
+
+
+
+    
+</head>
+
+
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header"  style="background-image:url(http://7xpw2b.com1.z0.glb.clouddn.com/hexo-sinppet/img/banner2.jpg)"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title="">
+            <img src="/img/avatar.jpg" alt="logo头像">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                <h2> 身和心，要有一个在路上 </h2>
+             
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only">Toggle navigation</span>
+                    <i class="fa fa-bars"></i>
+                    </span>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation"><a href="/categories/golang/"><i class="fa fa-fw /images/golang.jpg"></i>golang</a>
+                            </li>
+                        
+                            <li role="presentation"><a href="/categories/docker/"><i class="fa fa-fw /images/docker.png"></i>docker</a>
+                            </li>
+                        
+                            <li role="presentation"><a href="/categories/k8s/"><i class="fa fa-fw /images/k8s.png"></i>k8s</a>
+                            </li>
+                        
+                            <li role="presentation"><a href="/categories/linux/"><i class="fa fa-fw /images/linux.jpg"></i>linux</a>
+                            </li>
+                        
+                            <li role="presentation"><a href="/categories/resource/"><i class="fa fa-fw "></i>resource</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="Resource Pool">
+            
+            Resource Pool
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <span>resource</span>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            site
+            
+        </span>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">2017/10/27</span>
+    </span>
+</div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <p>Here is my resource pool, which including some wonderful site and blog link.</p>
+<a id="more"></a>
+<h1 id="As-a-Coder"><a href="#As-a-Coder" class="headerlink" title="As a Coder"></a>As a Coder</h1><h2 id="A-Programmer-Prepares"><a href="#A-Programmer-Prepares" class="headerlink" title="A Programmer Prepares"></a><a href="https://leohxj.gitbooks.io/a-programmer-prepares/" target="_blank" rel="noopener"><em>A Programmer Prepares</em></a></h2><p>A wonderful huge book for a coder who want to go higher.</p>
+<p>It’s a complete collection of useful tips for the coder.</p>
+<h1 id="Personal-Site"><a href="#Personal-Site" class="headerlink" title="Personal Site"></a>Personal Site</h1><ul>
+<li><a href="http://www.ruanyifeng.com/blog" target="_blank" rel="noopener">阮一峰的网络日志</a></li>
+<li><a href="http://www.chengweiyang.cn" target="_blank" rel="noopener">Chengwei’s Words</a></li>
+<li><p><a href="http://www.cnblogs.com/yuxingfirst" target="_blank" rel="noopener">语行</a></p>
+</li>
+<li><p><a href="http://blog.jimmylv.info" target="_blank" rel="noopener">吕立青的博客</a></p>
+</li>
+<li><p><a href="http://legendtkl.com/" target="_blank" rel="noopener">Legendtkl</a>: blogs of Tao Kelu(taokelu@gmail.com)</p>
+</li>
+<li><p><a href="http://michaelyou.github.io/" target="_blank" rel="noopener">Youmai のBlog</a>: network, linux, go, python, algorithm</p>
+</li>
+</ul>
+<h2 id="golang-helpful-blog-link"><a href="#golang-helpful-blog-link" class="headerlink" title="golang(helpful blog link)"></a>golang(helpful blog link)</h2><ul>
+<li><strong><a href="https://divan.github.io" target="_blank" rel="noopener">divan’s blog</a></strong> : an amazing blog</li>
+<li><p><a href="https://appliedgo.net" target="_blank" rel="noopener">Applied Go: Go beyond the Go tutorials</a></p>
+</li>
+<li><p><a href="http://tonybai.com/articles" target="_blank" rel="noopener">Tony Bai</a> : golang, docker</p>
+</li>
+<li><a href="http://zuozuohao.github.io/" target="_blank" rel="noopener">Hao</a></li>
+</ul>
+<h2 id="web"><a href="#web" class="headerlink" title="web"></a>web</h2><ul>
+<li><a href="http://sabrinaluo.com/tech/" target="_blank" rel="noopener">小白妹妹写代码</a>: a blog of a cute girl which focus on web</li>
+</ul>
+<hr>
+<h1 id="Reading"><a href="#Reading" class="headerlink" title="Reading"></a>Reading</h1><ul>
+<li><p><a href="http://www.tuicool.com" target="_blank" rel="noopener">推酷</a></p>
+</li>
+<li><p><a href="https://medium.com" target="_blank" rel="noopener">medium</a></p>
+</li>
+<li><a href="http://www.yilan.io" target="_blank" rel="noopener">一览</a></li>
+</ul>
+<hr>
+<h1 id="Study-on-Line"><a href="#Study-on-Line" class="headerlink" title="Study on Line"></a>Study on Line</h1><ul>
+<li><a href="https://tutsplus.com" target="_blank" rel="noopener">tuts+</a>: 资源多，质量好，不只视频还有文字教程。</li>
+<li><a href="https://www.lynda.com" target="_blank" rel="noopener">Lynda</a>: 同tuts+，有条理。</li>
+<li><p><a href="https://www.coursehero.com" target="_blank" rel="noopener">Course Hero</a></p>
+</li>
+<li><p><a href="http://www.imooc.com" target="_blank" rel="noopener">慕课网</a></p>
+</li>
+<li><a href="http://www.mooc.cn" target="_blank" rel="noopener">慕课中国</a></li>
+<li><a href="http://study.163.com" target="_blank" rel="noopener">网易云课堂</a></li>
+<li><a href="http://open.163.com" target="_blank" rel="noopener">网易公开课</a></li>
+</ul>
+<h2 id="软件开发类"><a href="#软件开发类" class="headerlink" title="软件开发类"></a>软件开发类</h2><ul>
+<li><a href="https://edu.aliyun.com/developer" target="_blank" rel="noopener">阿里云大学</a></li>
+</ul>
+<hr>
+<h1 id="Forums"><a href="#Forums" class="headerlink" title="Forums"></a>Forums</h1><ul>
+<li><a href="http://blog.dataman-inc.com" target="_blank" rel="noopener">数人云博客</a></li>
+<li><a href="https://yq.aliyun.com" target="_blank" rel="noopener">云栖社区</a></li>
+<li><a href="http://coolshell.cn" target="_blank" rel="noopener">酷壳</a></li>
+<li><a href="https://segmentfault.com" target="_blank" rel="noopener">segmentfault</a></li>
+</ul>
+<h2 id="docker"><a href="#docker" class="headerlink" title="docker"></a>docker</h2><ul>
+<li><a href="https://forums.docker.com" target="_blank" rel="noopener">forums.docker.com</a></li>
+<li><a href="https://blog.docker.com" target="_blank" rel="noopener">blog.docker.com</a></li>
+<li><a href="http://dockone.io/" target="_blank" rel="noopener">dockone</a></li>
+</ul>
+<h2 id="scrum"><a href="#scrum" class="headerlink" title="scrum"></a>scrum</h2><ul>
+<li><a href="http://www.chinascrum.org/" target="_blank" rel="noopener">scrum中文社区</a></li>
+</ul>
+<hr>
+<h1 id="News-Sites"><a href="#News-Sites" class="headerlink" title="News Sites"></a>News Sites</h1><ul>
+<li><a href="http://www.williamlong.info" target="_blank" rel="noopener">月光博客</a></li>
+<li><a href="http://www.chinaaet.com" target="_blank" rel="noopener">电子技术应用</a></li>
+</ul>
+<hr>
+<h1 id="Resource-Sites"><a href="#Resource-Sites" class="headerlink" title="Resource Sites"></a>Resource Sites</h1><ul>
+<li><a href="http://www.allitebooks.com" target="_blank" rel="noopener">allitebooks</a>: you can download almost all IT ebooks here</li>
+</ul>
+
+    </div>
+
+    <div class="post-footer">   
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Snippet</a>
+            
+        </div>
+        <div>
+            
+        </div>  
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/2017/12/12/go_http_server/" class="pre-post btn btn-default"><i class="fa fa-angle-left fa-fw"></i>上一篇</a>
+    
+    
+        <a href="/2017/09/21/go_tool_present/" class="next-post btn btn-default">下一篇<i class="fa fa-angle-right fa-fw"></i></a>
+    
+</div>
+
+
+    <div id="comments">
+        
+    <div id="uyan_frame"></div>
+    <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=1966422"></script>
+
+
+
+
+
+
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+    <aside class="col-md-4 sidebar">
+        
+        
+    <div class="widget">    
+        <h3 class="title">Search</h3>
+        <div id="search-form">
+            <div id="result-mask" class="hide"></div>
+            <div class="search-area">
+                
+                    <input id="search-key" type="search" autocomplete="off" placeholder="搜点什么呢?">
+                    <button type="button" class="search-form-submit" id="search-local">localSearch</button>
+                
+                
+            </div>
+            <div id="result-wrap" class="hide">
+                <div id="search-result"></div>
+            </div>
+            <div class="hide">
+                <template id="search-tpl">
+                    <div class="item">
+                        <a href="/{path}" title="{title}">
+                            <div class="title">{title}</div>
+                            <div class="content">{content}</div>
+                        </a>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </div>
+
+        
+        
+    <div class="widget">
+        <h3 class="title">Categories</h3>
+        <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/docker/"><i class="fa" aria-hidden="true">docker</i></a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/golang/"><i class="fa" aria-hidden="true">golang</i></a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/k8s/"><i class="fa" aria-hidden="true">k8s</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/"><i class="fa" aria-hidden="true">linux</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/resource/"><i class="fa" aria-hidden="true">resource</i></a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/util/"><i class="fa" aria-hidden="true">util</i></a><span class="category-list-count">1</span></li></ul>
+    </div>
+
+
+        
+        
+    <div class="widget">
+      <h3 class="title">Archives</h3>
+        <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/"><i class="fa" aria-hidden="true">December 2017</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/"><i class="fa" aria-hidden="true">October 2017</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/"><i class="fa" aria-hidden="true">September 2017</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/"><i class="fa" aria-hidden="true">July 2017</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/"><i class="fa" aria-hidden="true">October 2016</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/"><i class="fa" aria-hidden="true">July 2016</i></a><span class="archive-list-count">2</span></li></ul>
+    </div>
+
+
+        
+        
+  <div class="widget">
+    <h3 class="title">Tag Cloud</h3>
+    <div class="content tag-cloud">
+        <a href="/tags/books/" style="font-size: 10px;">books</a> <a href="/tags/compose/" style="font-size: 10px;">compose</a> <a href="/tags/docker/" style="font-size: 20px;">docker</a> <a href="/tags/doker/" style="font-size: 10px;">doker</a> <a href="/tags/golang/" style="font-size: 20px;">golang</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/k8s/" style="font-size: 10px;">k8s</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/network/" style="font-size: 10px;">network</a> <a href="/tags/site/" style="font-size: 10px;">site</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/tools/" style="font-size: 10px;">tools</a> <a href="/tags/translate/" style="font-size: 10px;">translate</a>
+    </div>
+  </div>
+
+
+        
+        
+    <div class="widget">
+        <h3 class="title">Friends</h3>
+        <div class="content friends-link">
+        
+            <a href="https://liwei.io" class="fa" target="_blank">李伟</a>
+        
+            <a href="http://blog.csdn.net/frankcheng5143" class="fa" target="_blank">高伟兄</a>
+        
+        </div>
+    </div>
+
+
+        
+        
+    <div class="widget">
+      <h3 class="title">Social</h3> 
+        <div class="content social">
+            
+	            <a href="//github.com/dongkui0712" rel="external nofollow" title="Github" target="_blank">
+			    	<i class="git fa fa-git"></i>
+			    </a>
+            
+	            <a href="mailto:dongkui0712@gmail.com" rel="external nofollow" title="邮箱" target="_blank">
+			    	<i class="envelope-o fa fa-envelope-o"></i>
+			    </a>
+            
+	            <a href="/" rel="external nofollow" title="微博" target="_blank">
+			    	<i class="weibo fa fa-weibo"></i>
+			    </a>
+            
+        </div>
+    </div>
+
+
+        
+        
+        
+    </aside>
+
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12"> 
+                <span>Copyright &copy; 2017
+                </span> | 
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> | 
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
 </div>
 
 
 
 
-<script src="/js/main.js"></script>
+	<script src="/js/search.js?rev=@@hash"></script>
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
 
 </body>
 </html>
